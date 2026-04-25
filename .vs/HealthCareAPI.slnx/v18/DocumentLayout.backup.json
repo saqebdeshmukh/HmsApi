@@ -1,0 +1,917 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\prescriptionservice\\prescriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\prescriptionservice\\prescriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\dbentities\\prescriptionitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dbentities\\prescriptionitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\exceptionhandling\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\exceptionhandling\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\controllers\\prescriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\controllers\\prescriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|d:\\myprojects\\healthcare\\healthcareapi\\viewmodels\\prescriptionrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|solutionrelative:viewmodels\\prescriptionrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\medicalrecordservice\\medicalrecordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\medicalrecordservice\\medicalrecordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\controllers\\medicalrecordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\controllers\\medicalrecordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\medicalrecordservice\\imedicalrecordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\medicalrecordservice\\imedicalrecordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|d:\\myprojects\\healthcare\\healthcareapi\\viewmodels\\medicalrecordrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|solutionrelative:viewmodels\\medicalrecordrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\dbentities\\medicalrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dbentities\\medicalrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\prescriptionservice\\iprescriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\prescriptionservice\\iprescriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\appointmentservice\\appointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\appointmentservice\\appointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|d:\\myprojects\\healthcare\\healthcareapi\\viewmodels\\appointmentviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|solutionrelative:viewmodels\\appointmentviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|d:\\myprojects\\healthcare\\healthcareapi\\viewmodels\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|solutionrelative:viewmodels\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\appointmentservice\\iappointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\appointmentservice\\iappointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\genericrepository\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\genericrepository\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\doctorservice\\doctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\doctorservice\\doctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\patientservice\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\patientservice\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|d:\\myprojects\\healthcare\\healthcareapi\\viewmodels\\patientrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|solutionrelative:viewmodels\\patientrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|d:\\myprojects\\healthcare\\healthcareapi\\viewmodels\\doctorrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|solutionrelative:viewmodels\\doctorrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\dbentities\\receptionist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dbentities\\receptionist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\receptionistservice\\receptionistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\receptionistservice\\receptionistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\dbentities\\doctor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dbentities\\doctor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\dbentities\\patient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dbentities\\patient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422164720_doctorremovedpatient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DataAccess\\Migrations\\20260422164720_doctorremovedpatient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\context\\applicationcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\context\\applicationcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422164259_doctorremovedpatient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DataAccess\\Migrations\\20260422164259_doctorremovedpatient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\controllers\\receptionistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\controllers\\receptionistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|d:\\myprojects\\healthcare\\healthcareapi\\viewmodels\\receptionistrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|solutionrelative:viewmodels\\receptionistrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\receptionistservice\\ireceptionistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\receptionistservice\\ireceptionistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\dashboardservice\\dashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\dashboardservice\\dashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\prescritpionrepository\\prescritpionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\prescritpionrepository\\prescritpionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\dbentities\\prescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dbentities\\prescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\patientservice\\ipatientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\patientservice\\ipatientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\dbentities\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dbentities\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\doctorservice\\idoctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\doctorservice\\idoctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\patientservice\\patientvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\patientservice\\patientvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\userservice\\uservalidations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\userservice\\uservalidations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|d:\\myprojects\\healthcare\\healthcareapi\\viewmodels\\userrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55936537-3749-C7DC-F15C-3531E8498743}|ViewModels\\ViewModels.csproj|solutionrelative:viewmodels\\userrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\filtervalidations\\fluentvalidationfilter .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\filtervalidations\\fluentvalidationfilter .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\tokenservice\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\tokenservice\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\patientrepository\\patientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\patientrepository\\patientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|d:\\myprojects\\healthcare\\healthcareapi\\businesslogic\\dashboardservice\\idashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E30B25-F83B-04BE-47BF-65C6F329008E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\dashboardservice\\idashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\dbentities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dbentities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\dbentities\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dbentities\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|d:\\myprojects\\healthcare\\healthcareapi\\healthcareapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2528CEEB-477D-EAA6-FDE9-18B211004203}|HealthCareAPI\\HealthCareAPI.csproj|solutionrelative:healthcareapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\migrations\\20260422165219_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\migrations\\20260422165219_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|d:\\myprojects\\healthcare\\healthcareapi\\dataaccess\\migrations\\20260422174738_collctremoved.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45E8AD2D-F6CC-99C0-B6AF-489676982DA4}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\migrations\\20260422174738_collctremoved.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PrescriptionItem.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\PrescriptionItem.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DBEntities\\PrescriptionItem.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\PrescriptionItem.cs",
+              "RelativeToolTip": "DataAccess\\DBEntities\\PrescriptionItem.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAowCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T20:24:55.246Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PrescriptionRequestModel.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\PrescriptionRequestModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\PrescriptionRequestModel.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\PrescriptionRequestModel.cs",
+              "RelativeToolTip": "ViewModels\\PrescriptionRequestModel.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwAYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T10:40:13.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MedicalRecordService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\MedicalRecordService\\MedicalRecordService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\MedicalRecordService\\MedicalRecordService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\MedicalRecordService\\MedicalRecordService.cs",
+              "RelativeToolTip": "BusinessLogic\\MedicalRecordService\\MedicalRecordService.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAawDoAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T14:30:10.695Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MedicalRecord.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\MedicalRecord.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DBEntities\\MedicalRecord.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\MedicalRecord.cs",
+              "RelativeToolTip": "DataAccess\\DBEntities\\MedicalRecord.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T14:40:27.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IMedicalRecordService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\MedicalRecordService\\IMedicalRecordService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\MedicalRecordService\\IMedicalRecordService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\MedicalRecordService\\IMedicalRecordService.cs",
+              "RelativeToolTip": "BusinessLogic\\MedicalRecordService\\IMedicalRecordService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T14:37:23.085Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PrescriptionService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PrescriptionService\\PrescriptionService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\PrescriptionService\\PrescriptionService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PrescriptionService\\PrescriptionService.cs",
+              "RelativeToolTip": "BusinessLogic\\PrescriptionService\\PrescriptionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGIAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T07:47:09.385Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PrescriptionController.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\PrescriptionController.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\Controllers\\PrescriptionController.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\PrescriptionController.cs",
+              "RelativeToolTip": "HealthCareAPI\\Controllers\\PrescriptionController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T12:45:08.259Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ExceptionMiddleware.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\ExceptionHandling\\ExceptionMiddleware.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\ExceptionHandling\\ExceptionMiddleware.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\ExceptionHandling\\ExceptionMiddleware.cs",
+              "RelativeToolTip": "HealthCareAPI\\ExceptionHandling\\ExceptionMiddleware.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAWwBUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T12:56:23.3Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MedicalRecordController.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\MedicalRecordController.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\Controllers\\MedicalRecordController.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\MedicalRecordController.cs",
+              "RelativeToolTip": "HealthCareAPI\\Controllers\\MedicalRecordController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAcwCQAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T11:37:48.692Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IPrescriptionService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PrescriptionService\\IPrescriptionService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\PrescriptionService\\IPrescriptionService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PrescriptionService\\IPrescriptionService.cs",
+              "RelativeToolTip": "BusinessLogic\\PrescriptionService\\IPrescriptionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAABmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T07:46:56.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MedicalRecordRequestModel.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\MedicalRecordRequestModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\MedicalRecordRequestModel.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\MedicalRecordRequestModel.cs",
+              "RelativeToolTip": "ViewModels\\MedicalRecordRequestModel.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAywCAAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T14:40:03.493Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AppointmentController.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\AppointmentController.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\Controllers\\AppointmentController.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\AppointmentController.cs",
+              "RelativeToolTip": "HealthCareAPI\\Controllers\\AppointmentController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAIwBkAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T07:08:19.404Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Program.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\Program.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Program.cs",
+              "RelativeToolTip": "HealthCareAPI\\Program.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADEAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T09:48:42.393Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AppointmentService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\AppointmentService\\AppointmentService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\AppointmentService\\AppointmentService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\AppointmentService\\AppointmentService.cs",
+              "RelativeToolTip": "BusinessLogic\\AppointmentService\\AppointmentService.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAWwIEAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-23T09:40:18.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DashboardViewModel.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\DashboardViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\DashboardViewModel.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\DashboardViewModel.cs",
+              "RelativeToolTip": "ViewModels\\DashboardViewModel.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAcwCcAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T11:23:47.522Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AppointmentViewModel.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\AppointmentViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\AppointmentViewModel.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\AppointmentViewModel.cs",
+              "RelativeToolTip": "ViewModels\\AppointmentViewModel.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAgwCsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T11:31:30.668Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "IAppointmentService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\AppointmentService\\IAppointmentService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\AppointmentService\\IAppointmentService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\AppointmentService\\IAppointmentService.cs",
+              "RelativeToolTip": "BusinessLogic\\AppointmentService\\IAppointmentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T06:33:26.476Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "GenericRepository.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\GenericRepository\\GenericRepository.cs",
+              "RelativeDocumentMoniker": "DataAccess\\GenericRepository\\GenericRepository.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\GenericRepository\\GenericRepository.cs",
+              "RelativeToolTip": "DataAccess\\GenericRepository\\GenericRepository.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAA7wDwAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-23T12:10:48.155Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "PatientService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PatientService\\PatientService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\PatientService\\PatientService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PatientService\\PatientService.cs",
+              "RelativeToolTip": "BusinessLogic\\PatientService\\PatientService.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAuwBgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T11:05:22.142Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "PatientRequestModel.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\PatientRequestModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\PatientRequestModel.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\PatientRequestModel.cs",
+              "RelativeToolTip": "ViewModels\\PatientRequestModel.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAUwB4AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T16:48:21.887Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "DoctorRequestModel.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\DoctorRequestModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\DoctorRequestModel.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\DoctorRequestModel.cs",
+              "RelativeToolTip": "ViewModels\\DoctorRequestModel.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAgwBAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T06:24:59.837Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "DoctorService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\DoctorService\\DoctorService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\DoctorService\\DoctorService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\DoctorService\\DoctorService.cs",
+              "RelativeToolTip": "BusinessLogic\\DoctorService\\DoctorService.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwCgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T17:43:33.872Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Receptionist.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Receptionist.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DBEntities\\Receptionist.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Receptionist.cs",
+              "RelativeToolTip": "DataAccess\\DBEntities\\Receptionist.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T12:54:11.379Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ReceptionistService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\ReceptionistService\\ReceptionistService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\ReceptionistService\\ReceptionistService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\ReceptionistService\\ReceptionistService.cs",
+              "RelativeToolTip": "BusinessLogic\\ReceptionistService\\ReceptionistService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwCAAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T12:50:39.039Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "ReceptionistRequestModel.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\ReceptionistRequestModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\ReceptionistRequestModel.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\ReceptionistRequestModel.cs",
+              "RelativeToolTip": "ViewModels\\ReceptionistRequestModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAoAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T12:53:47.96Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "20260422164259_doctorremovedpatient.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422164259_doctorremovedpatient.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Migrations\\20260422164259_doctorremovedpatient.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422164259_doctorremovedpatient.cs",
+              "RelativeToolTip": "DataAccess\\Migrations\\20260422164259_doctorremovedpatient.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T16:43:00.395Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "20260422164720_doctorremovedpatient.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422164720_doctorremovedpatient.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Migrations\\20260422164720_doctorremovedpatient.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422164720_doctorremovedpatient.cs",
+              "RelativeToolTip": "DataAccess\\Migrations\\20260422164720_doctorremovedpatient.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T16:47:20.386Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "20260422165219_initial.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422165219_initial.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Migrations\\20260422165219_initial.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422165219_initial.cs",
+              "RelativeToolTip": "DataAccess\\Migrations\\20260422165219_initial.cs",
+              "ViewState": "AgIAAIYAAAAAAAAAAAAgwJcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T16:52:19.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "20260422174738_collctremoved.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422174738_collctremoved.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Migrations\\20260422174738_collctremoved.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Migrations\\20260422174738_collctremoved.cs",
+              "RelativeToolTip": "DataAccess\\Migrations\\20260422174738_collctremoved.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T17:47:38.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Doctor.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Doctor.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DBEntities\\Doctor.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Doctor.cs",
+              "RelativeToolTip": "DataAccess\\DBEntities\\Doctor.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAA9wCoAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T06:25:44.557Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Patient.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Patient.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DBEntities\\Patient.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Patient.cs",
+              "RelativeToolTip": "DataAccess\\DBEntities\\Patient.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAA7wD4AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T16:28:31.019Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\Controllers\\DashboardController.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "HealthCareAPI\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwCcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T12:49:23.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "IReceptionistService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\ReceptionistService\\IReceptionistService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\ReceptionistService\\IReceptionistService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\ReceptionistService\\IReceptionistService.cs",
+              "RelativeToolTip": "BusinessLogic\\ReceptionistService\\IReceptionistService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T12:51:18.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ApplicationContext.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Context\\ApplicationContext.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Context\\ApplicationContext.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\Context\\ApplicationContext.cs",
+              "RelativeToolTip": "DataAccess\\Context\\ApplicationContext.cs",
+              "ViewState": "AgIAALYAAAAAAAAAAAAYwMgAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T14:32:51.599Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "DoctorController.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\DoctorController.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\Controllers\\DoctorController.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\DoctorController.cs",
+              "RelativeToolTip": "HealthCareAPI\\Controllers\\DoctorController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBsAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T11:45:28.094Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "ReceptionistController.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\ReceptionistController.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\Controllers\\ReceptionistController.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\ReceptionistController.cs",
+              "RelativeToolTip": "HealthCareAPI\\Controllers\\ReceptionistController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T14:32:37.403Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "DashboardService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\DashboardService\\DashboardService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\DashboardService\\DashboardService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\DashboardService\\DashboardService.cs",
+              "RelativeToolTip": "BusinessLogic\\DashboardService\\DashboardService.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAD4vxIAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T12:48:13.919Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "PrescritpionRepository.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\PrescritpionRepository\\PrescritpionRepository.cs",
+              "RelativeDocumentMoniker": "DataAccess\\PrescritpionRepository\\PrescritpionRepository.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\PrescritpionRepository\\PrescritpionRepository.cs",
+              "RelativeToolTip": "DataAccess\\PrescritpionRepository\\PrescritpionRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T12:34:20.266Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Prescription.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Prescription.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DBEntities\\Prescription.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Prescription.cs",
+              "RelativeToolTip": "DataAccess\\DBEntities\\Prescription.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAowCgAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T10:40:28.438Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "IPatientService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PatientService\\IPatientService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\PatientService\\IPatientService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PatientService\\IPatientService.cs",
+              "RelativeToolTip": "BusinessLogic\\PatientService\\IPatientService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T15:41:44.569Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "PatientController.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\PatientController.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\Controllers\\PatientController.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\PatientController.cs",
+              "RelativeToolTip": "HealthCareAPI\\Controllers\\PatientController.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABcAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T17:40:26.278Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "Appointment.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Appointment.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DBEntities\\Appointment.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\Appointment.cs",
+              "RelativeToolTip": "DataAccess\\DBEntities\\Appointment.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAABIAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T11:30:09.15Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "PatientValidation.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PatientService\\PatientValidation.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\PatientService\\PatientValidation.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\PatientService\\PatientValidation.cs",
+              "RelativeToolTip": "BusinessLogic\\PatientService\\PatientValidation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T17:04:14.542Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "IDoctorService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\DoctorService\\IDoctorService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\DoctorService\\IDoctorService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\DoctorService\\IDoctorService.cs",
+              "RelativeToolTip": "BusinessLogic\\DoctorService\\IDoctorService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T06:21:14.747Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\UserService\\UserService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\UserService\\UserService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\UserService\\UserService.cs",
+              "RelativeToolTip": "BusinessLogic\\UserService\\UserService.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAMwBgAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T10:14:08.247Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "UserRequestModel.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\UserRequestModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\UserRequestModel.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\ViewModels\\UserRequestModel.cs",
+              "RelativeToolTip": "ViewModels\\UserRequestModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T10:18:10.725Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "HealthCareAPI\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAtwBMAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T10:02:20.383Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "UserValidations.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\UserService\\UserValidations.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\UserService\\UserValidations.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\UserService\\UserValidations.cs",
+              "RelativeToolTip": "BusinessLogic\\UserService\\UserValidations.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T15:48:56.881Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\TokenService\\TokenService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\TokenService\\TokenService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\TokenService\\TokenService.cs",
+              "RelativeToolTip": "BusinessLogic\\TokenService\\TokenService.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAgwBgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T13:17:55.1Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "FluentValidationFilter .cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\FilterValidations\\FluentValidationFilter .cs",
+              "RelativeDocumentMoniker": "HealthCareAPI\\FilterValidations\\FluentValidationFilter .cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\FilterValidations\\FluentValidationFilter .cs",
+              "RelativeToolTip": "HealthCareAPI\\FilterValidations\\FluentValidationFilter .cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAWwDwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T06:09:24.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\UserService\\IUserService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\UserService\\IUserService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\UserService\\IUserService.cs",
+              "RelativeToolTip": "BusinessLogic\\UserService\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T14:06:14.879Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "IDashboardService.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\DashboardService\\IDashboardService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\DashboardService\\IDashboardService.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\BusinessLogic\\DashboardService\\IDashboardService.cs",
+              "RelativeToolTip": "BusinessLogic\\DashboardService\\IDashboardService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T11:19:15.844Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "PatientRepository.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\PatientRepository\\PatientRepository.cs",
+              "RelativeDocumentMoniker": "DataAccess\\PatientRepository\\PatientRepository.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\PatientRepository\\PatientRepository.cs",
+              "RelativeToolTip": "DataAccess\\PatientRepository\\PatientRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T11:44:07.817Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "HealthCareAPI\\appsettings.json",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\HealthCareAPI\\appsettings.json",
+              "RelativeToolTip": "HealthCareAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-16T13:12:59.723Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\User.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DBEntities\\User.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\User.cs",
+              "RelativeToolTip": "DataAccess\\DBEntities\\User.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAgwBYAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T10:18:37.44Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "RefreshToken.cs",
+              "DocumentMoniker": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\RefreshToken.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DBEntities\\RefreshToken.cs",
+              "ToolTip": "D:\\MyProjects\\HealthCare\\HealthCareAPI\\DataAccess\\DBEntities\\RefreshToken.cs",
+              "RelativeToolTip": "DataAccess\\DBEntities\\RefreshToken.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T13:47:44.904Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

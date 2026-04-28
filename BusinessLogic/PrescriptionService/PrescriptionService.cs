@@ -50,7 +50,7 @@ namespace BusinessLogic.PrescriptionService
         public async Task<ResponseObj<string>> UpdatePrescription(PrescriptionRequestModel prescriptionRequestModel, string PrescriptionId)
         {
             ResponseObj<string> responseObj = new ResponseObj<string>();
-            var prescription = await _unitOfWork.PrescritpionRepository.GetWithTracking().Where(x => x.Id == PrescriptionId).FirstOrDefaultAsync();
+            var prescription = await _unitOfWork.PrescritpionRepository.GetWithTracking().Where(x => x.Id == PrescriptionId).Include(p=>p.Items).FirstOrDefaultAsync();
             if (prescription == null)
             {
                 responseObj.Message = "Prescription not found";
@@ -96,6 +96,8 @@ namespace BusinessLogic.PrescriptionService
                 DoctorName = s.Doctor.FirstName + " " + s.Doctor.LastName,
                 PatientId = s.PatientId,
                 PatientName = s.Patient.FirstName + " " + s.Patient.LastName,
+                PrescriptionDate = s.PrescriptionDate,
+                Type=s.Type,
                 prescriptionItemRequests = s.Items.Select(p => new PrescriptionItemRequest { MedicineName = p.MedicineName, Dosage = p.Dosage, Duration = p.Duration, MealTiming = p.MealTiming, Frequency = p.Frequency }).ToList(),
             })
                .ToListAsync();
@@ -121,6 +123,9 @@ namespace BusinessLogic.PrescriptionService
                     PatientPhoneNo = s.Patient.Phone,
                     Instructions = s.Instructions,
                     Diagnosis = s.MedicalRecord.Diagnosis,
+                    PatientId = s.PatientId,
+                    DoctorId = s.DoctorId,
+                    MedicalRecordId = s.MedicalRecordId,
                     Specialization = s.Doctor.Specialization,
                     PrescriptionDate = s.PrescriptionDate,
                     Type = s.Type,

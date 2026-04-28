@@ -15,10 +15,10 @@ namespace HealthCareAPI.Controllers
             _prescriptionService = prescriptionService;
         }
         [HttpPost("CreatePrescription")]
-        public async Task<ResponseObj<string>> CreatePrescription(PrescriptionRequestModel prescriptionRequestModel)
+        public async Task<ResponseObj<string>> CreatePrescription([FromBody] PrescriptionRequestModel prescriptionRequestModel)
             => await _prescriptionService.CreatePrescription(prescriptionRequestModel);
         [HttpPut("UpdatePrescription/{PrescriptionId}")]
-        public async Task<ResponseObj<string>> UpdatePrescription(PrescriptionRequestModel prescriptionRequestModel, string PrescriptionId)
+        public async Task<ResponseObj<string>> UpdatePrescription([FromBody] PrescriptionRequestModel prescriptionRequestModel, string PrescriptionId)
             => await _prescriptionService.UpdatePrescription(prescriptionRequestModel, PrescriptionId);
         [HttpGet("Prescriptions/{doctorId?}")]
         public async Task<ResponseObj<List<PrescriptionViewModel>>> Prescriptions(string? doctorId)

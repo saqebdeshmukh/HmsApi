@@ -34,6 +34,7 @@ namespace DataAccess.Context
         public DbSet<PrescriptionItem> PrescriptionItems { get; set; }
         public DbSet<DoctorAvailabilitySlot> DoctorAvailabilitySlots { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<HealthReport> HealthReports { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

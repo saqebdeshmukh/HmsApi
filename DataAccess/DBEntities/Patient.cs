@@ -40,21 +40,6 @@ namespace DataAccess.DBEntities
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        // Vitals
-        [StringLength(20)]
-        public string? Weight { get; set; }
-
-        [StringLength(20)]
-        public string? Height { get; set; }
-
-        [StringLength(50)]
-        public string? BloodPressure { get; set; }
-
-        [StringLength(50)]
-        public string? Sugar { get; set; }
-
-        
-
         // Normalized name for duplicate detection (lowercase, diacritics removed)
         [StringLength(200)]
         public string? NormalizedName { get; set; }

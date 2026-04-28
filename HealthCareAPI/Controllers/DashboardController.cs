@@ -31,7 +31,7 @@ namespace HealthCareAPI.Controllers
         [HttpGet("ReceptionistDashboard")]
         public async Task<ResponseObj<ReceptionistDashboardModel>> ReceptionistDashboard()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;            
             return await _dashboardService.GetReceptionistDashboard(userId);
         }
 

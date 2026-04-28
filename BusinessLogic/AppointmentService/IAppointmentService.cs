@@ -12,5 +12,6 @@ namespace BusinessLogic.AppointmentService
         Task<ResponseObj<AppointmentDetailsViewModel>> AppointmentDetails(string appointmentId);
         Task<ResponseObj<string>> UpdateAppointmentStatus(string appointmentId, string status);
         Task<ResponseObj<string>> DeleteAppointment(string appointmentId);
+        Task<ResponseObj<List<AppointmentViewModel>>> Calendar(int? Month, int? Year, string role, string userId);
     }
 }

@@ -3,9 +3,11 @@ using DataAccess.DBEntities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Numerics;
 using System.Text;
 using ViewModels;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BusinessLogic.AppointmentService
 {
@@ -119,6 +121,7 @@ namespace BusinessLogic.AppointmentService
         public async Task<ResponseObj<AppointmentDetailsViewModel>> AppointmentDetails(string appointmentId)
         {
             ResponseObj<AppointmentDetailsViewModel> responseObj = new ResponseObj<AppointmentDetailsViewModel>();
+
             var appointment = await _unitOfWork.AppointmentRepository.GetWithoutTracking()
                 .Where(a => a.Id == appointmentId)
                 .Select(a => new AppointmentDetailsViewModel
@@ -126,8 +129,8 @@ namespace BusinessLogic.AppointmentService
                     Id = a.Id,
                     AppointmentDate = a.AppointmentDate,
                     Status = a.Status,
-                    PatientId=a.PatientId,
-                    DoctorId=a.DoctorId,
+                    PatientId = a.PatientId,
+                    DoctorId = a.DoctorId,
                     PatientName = a.Patient.FirstName + " " + a.Patient.LastName,
                     DoctorName = a.Doctor.FirstName + " " + a.Doctor.LastName,
                     DoctorSpecialization = a.Doctor.Specialization,
@@ -141,6 +144,16 @@ namespace BusinessLogic.AppointmentService
                     CreatedAt = a.CreatedAt
                 })
                 .FirstOrDefaultAsync();
+            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking().Where(h => h.PatientId == appointment.PatientId).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+            if(healthRpt != null)
+            {
+                appointment.Weight = healthRpt.Weight != null ? healthRpt.Weight : "0";
+                appointment.Height = healthRpt.Height != null ? healthRpt.Height : "0";
+                appointment.DiastolicBp = healthRpt.DiastolicBp != null ? healthRpt.DiastolicBp : "0";
+                appointment.SystolicBp = healthRpt.SystolicBp != null ? healthRpt.SystolicBp : "0";
+                appointment.SugarBeforeMeal = healthRpt.DiastolicBp != null ? healthRpt.SugarBeforeMeal : "0";
+                appointment.SugarAfterMeal = healthRpt.SugarAfterMeal != null ? healthRpt.SugarAfterMeal : "0";
+            }
             if (appointment == null)
             {
                 responseObj.IsSuccess = false;
@@ -187,6 +200,55 @@ namespace BusinessLogic.AppointmentService
             await _unitOfWork.Complete();
             responseObj.IsSuccess = true;
             responseObj.Message = "Appointment deleted successfully.";
+            return responseObj;
+        }
+        public async Task<ResponseObj<List<AppointmentViewModel>>> Calendar(int? Month, int? Year, string role, string userId)
+        {
+            ResponseObj<List<AppointmentViewModel>> responseObj = new();
+
+            DateTime today = DateTime.Today;
+            int selectedMonth = Month ?? today.Month;
+            int selectedYear = Year ?? today.Year;
+
+            // ✅ Step 1: Base Query (ENTITY, not projection)
+            var query = _unitOfWork.AppointmentRepository
+                .GetWithoutTracking()
+                .AsQueryable();
+
+            // ✅ Step 2: Doctor Filter (apply BEFORE select)
+            if (role == "Doctor")
+            {
+                var doctor = await _unitOfWork.DoctorRepository
+                    .GetWithoutTracking()
+                    .FirstOrDefaultAsync(d => d.UserId == userId);
+
+                if (doctor != null)
+                {
+                    query = query.Where(x => x.DoctorId == doctor.Id);
+                }
+            }
+
+            // ✅ Step 3: Filter by month/year (efficient SQL)
+            query = query.Where(x =>
+                x.AppointmentDate.Month == selectedMonth &&
+                x.AppointmentDate.Year == selectedYear);
+
+            // ✅ Step 4: Projection (ONLY needed fields)
+            var appointments = await query
+                .Select(x => new AppointmentViewModel
+                {
+                    Id = x.Id,
+                    DoctorId = x.DoctorId, // 🔥 IMPORTANT
+                    PatientName = x.Patient.FirstName + " " + x.Patient.LastName,
+                    DoctorName = x.Doctor.FirstName + " " + x.Doctor.LastName,
+                    AppointmentDate = x.AppointmentDate,
+                    Status = x.Status
+                })
+                .ToListAsync();
+
+            responseObj.IsSuccess = true;
+            responseObj.Data = appointments;
+
             return responseObj;
         }
     }

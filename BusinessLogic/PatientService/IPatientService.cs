@@ -11,6 +11,6 @@ namespace BusinessLogic.PatientService
         Task<ResponseObj<List<PatientViewModel>>> GetPatients(string? doctorId = null);
         Task<ResponseObj<string>> UpdatePatient(PatientRequestModel patientRequestModel, string patientId);
         Task<ResponseObj<PatientViewModel>> GetPatientById(string Id);
-
+        Task<ResponseObj<PatientDetailsViewModel>> PatientDetails(string Id);
     }
 }

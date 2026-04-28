@@ -46,6 +46,12 @@ namespace ViewModels
         public string PatientPhone { get; set; }
         public string PatientGender { get; set; }
         public string BloodGroup { get; set; }
+        public string? Weight { get; set; }
+        public string? Height { get; set; }
+        public string? SystolicBp { get; set; }
+        public string? DiastolicBp { get; set; }
+        public string? SugarAfterMeal { get; set; }
+        public string? SugarBeforeMeal { get; set; }
         public int Age { get; set; }
         public DateTime AppointmentDate { get; set; }
         public string Status { get; set; }

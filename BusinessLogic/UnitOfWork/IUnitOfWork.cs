@@ -1,5 +1,6 @@
 ﻿using DataAccess.AppointmentRepository;
 using DataAccess.DoctorRepository;
+using DataAccess.HealthReportRepository;
 using DataAccess.MedicalRecordRepository;
 using DataAccess.PatientRepository;
 using DataAccess.PrescritpionRepository;
@@ -26,5 +27,6 @@ namespace BusinessLogic.UnitOfWork
         IMedicalRecordRepository MedicalRecordRepository { get; }
         IReceptionistRepository ReceptionistRepository { get; }
         IPrescritpionRepository PrescritpionRepository { get; }
+        IHealthReportRepository HealthReportRepository { get; }
     }
 }

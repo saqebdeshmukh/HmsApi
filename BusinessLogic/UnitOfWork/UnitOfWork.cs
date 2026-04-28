@@ -1,6 +1,7 @@
 ﻿using DataAccess.AppointmentRepository;
 using DataAccess.Context;
 using DataAccess.DoctorRepository;
+using DataAccess.HealthReportRepository;
 using DataAccess.MedicalRecordRepository;
 using DataAccess.PatientRepository;
 using DataAccess.PrescritpionRepository;
@@ -30,6 +31,7 @@ namespace BusinessLogic.UnitOfWork
             MedicalRecordRepository = new MedicalRecordRepository(_context);
             ReceptionistRepository = new ReceptionistRepository(_context);
             PrescritpionRepository = new PrescritpionRepository(_context);
+            HealthReportRepository = new HealthReportRepository(_context);
         }
         public IUserRepository UserRepository { get; private set; }
         public IRefreshTokenRepository RefreshTokenRepository { get; private set; }
@@ -39,6 +41,7 @@ namespace BusinessLogic.UnitOfWork
         public IMedicalRecordRepository MedicalRecordRepository { get; private set; }
         public IReceptionistRepository ReceptionistRepository { get; private set; }
         public IPrescritpionRepository PrescritpionRepository { get; private set; }
+        public IHealthReportRepository HealthReportRepository { get; private set; }
 
         public async Task<int> Complete()
         {

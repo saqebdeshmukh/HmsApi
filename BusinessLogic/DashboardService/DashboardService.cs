@@ -86,6 +86,7 @@ namespace BusinessLogic.DashboardService
                     .OrderBy(a => a.AppointmentDate)
                     .Select(a => new AppointmentDto
                     {
+                        Id = a.Id,
                         AppointmentDate = a.AppointmentDate,
                         PatientName = a.Patient.FirstName + " " + a.Patient.LastName,
                         Status = a.Status
@@ -102,6 +103,7 @@ namespace BusinessLogic.DashboardService
                     .Take(10)
                     .Select(a => new AppointmentDto
                     {
+                        Id = a.Id,
                         AppointmentDate = a.AppointmentDate,
                         PatientName = a.Patient.FirstName + " " + a.Patient.LastName,
                         Status = a.Status

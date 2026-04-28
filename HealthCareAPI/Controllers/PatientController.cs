@@ -28,5 +28,8 @@ namespace HealthCareAPI.Controllers
         [HttpGet("GetPatientById/{id}")]
         public async Task<ResponseObj<PatientViewModel>> GetPatientById(string Id)
             => await _patientService.GetPatientById(Id);
+        [HttpGet("PatientDetails/{id}")]
+        public async Task<ResponseObj<PatientDetailsViewModel>> PatientDetails(string Id)
+            =>await _patientService.PatientDetails(Id);
     }
 }

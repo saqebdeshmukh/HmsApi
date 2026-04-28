@@ -42,6 +42,7 @@ namespace ViewModels
         public string Id { get; set; }
         public DateTime AppointmentDate { get; set; }
         public string PatientName { get; set; }
+        public string DoctorName { get; set; }
         public string Status { get; set; }
         public string Phone { get; set; }
     }

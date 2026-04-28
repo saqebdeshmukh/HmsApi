@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.AppointmentService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using ViewModels;
 
 namespace HealthCareAPI.Controllers
@@ -29,5 +30,12 @@ namespace HealthCareAPI.Controllers
         [HttpDelete("DeleteAppointment/{appointmentId}")]
         public async Task<ResponseObj<string>> DeleteAppointment(string appointmentId)
             => await _appointmentService.DeleteAppointment(appointmentId);
+        [HttpGet("Calendar/{Month}/{Year}")]
+        public async Task<ResponseObj<List<AppointmentViewModel>>> Calendar(int? Month, int? Year)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+            return await _appointmentService.Calendar(Month, Year, userId, role);
+        }
     }
 }

@@ -19,7 +19,8 @@ namespace BusinessLogic.MedicalRecordService
         {
             ResponseObj<string> responseObj = new ResponseObj<string>();
             MedicalRecord medicalRecord = new MedicalRecord();
-            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithTracking().Where(h => h.PatientId == medicalRecordRequestModel.PatientId).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithTracking()
+                .Where(h => h.PatientId == medicalRecordRequestModel.PatientId && h.CreatedAt.Date == DateTime.Today).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
             var appointments = await _unitOfWork.AppointmentRepository.GetWithoutTracking().Where(x => x.PatientId == medicalRecordRequestModel.PatientId).FirstOrDefaultAsync();
             if (appointments == null)
             {
@@ -65,6 +66,11 @@ namespace BusinessLogic.MedicalRecordService
 
             await _unitOfWork.MedicalRecordRepository.Add(medicalRecord);
             await _unitOfWork.Complete();
+            var appointment = await _unitOfWork.AppointmentRepository.GetWithTracking().Where(x => x.Id == medicalRecord.AppointmentId).FirstOrDefaultAsync();
+            appointment.Status = "Medical Record Created";
+            await _unitOfWork.AppointmentRepository.Update(appointment);
+            await _unitOfWork.Complete();
+            responseObj.Data = medicalRecord.Id;
             responseObj.IsSuccess = true;
             responseObj.Message = "Medical record created successfully";
             return responseObj;
@@ -72,7 +78,9 @@ namespace BusinessLogic.MedicalRecordService
         public async Task<ResponseObj<string>> UpdateMedicalRecord(MedicalRecordRequestModel medicalRecordRequestModel, string medicalRecordId)
         {
             ResponseObj<string> responseObj = new ResponseObj<string>();
-            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking().Where(h => h.PatientId == medicalRecordRequestModel.PatientId).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking()
+                .Where(h => h.PatientId == medicalRecordRequestModel.PatientId && h.CreatedAt.Date == DateTime.Today)
+                .OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
             var medicalRecord = await _unitOfWork.MedicalRecordRepository.GetWithoutTracking().Where(x => x.Id == medicalRecordId).FirstOrDefaultAsync();
             if (medicalRecord == null)
             {
@@ -122,7 +130,8 @@ namespace BusinessLogic.MedicalRecordService
         public async Task<ResponseObj<List<MedicalRecordResponseModel>>> GetMedicalRecordsByPatientId(string patientId)
         {
             ResponseObj<List<MedicalRecordResponseModel>> responseObj = new ResponseObj<List<MedicalRecordResponseModel>>();
-            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking().Where(h => h.PatientId == patientId).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking()
+                .Where(h => h.PatientId == patientId && h.CreatedAt.Date == DateTime.Today).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
             var medicalRecords = await _unitOfWork.MedicalRecordRepository.GetWithoutTracking().Where(x => x.PatientId == patientId).
                 Select(x => new MedicalRecordResponseModel
                 {
@@ -167,12 +176,12 @@ namespace BusinessLogic.MedicalRecordService
                     PatientName = x.Patient.FirstName + " " + x.Patient.LastName,
                     DoctorName = x.Doctor.FirstName + " " + x.Doctor.LastName,
                     AppointmentId = x.AppointmentId,
-                    VisitDate = x.VisitDate,
+                    VisitDate = x.CreatedAt,
                     Diagnosis = x.Diagnosis,
                     Symptoms = x.Symptoms,
                     Treatment = x.Treatment,
                     Notes = x.Notes
-                }).ToListAsync();
+                }).OrderByDescending(o=>o.VisitDate).ToListAsync();
             if (medicalRecords == null || medicalRecords.Count == 0)
             {
                 responseObj.IsSuccess = false;
@@ -261,7 +270,9 @@ namespace BusinessLogic.MedicalRecordService
                 }).FirstOrDefaultAsync();
             if (medicalRecords != null)
             {
-                var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking().Where(h => h.PatientId == medicalRecords.PatientId).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+                var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking()
+                    .Where(h => h.PatientId == medicalRecords.PatientId && h.CreatedAt.Date == DateTime.Today)
+                    .OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
                 if (healthRpt != null)
                 {
                     medicalRecords.Weight = healthRpt.Weight != null ? healthRpt.Weight : "0";

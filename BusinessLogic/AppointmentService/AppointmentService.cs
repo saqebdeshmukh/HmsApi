@@ -26,7 +26,7 @@ namespace BusinessLogic.AppointmentService
             var dayEnd = dayStart.AddDays(1);
             var appointmentExist = await _unitOfWork.AppointmentRepository.GetWithoutTracking()
                 .Where(a => a.PatientId == appointmentRequestModel.PatientId
-                && a.DoctorId == appointmentRequestModel.DoctorId
+                && a.DoctorId == appointmentRequestModel.DoctorId && a.Status =="Scheduled"
                 && a.AppointmentDate >= dayStart && a.AppointmentDate < dayEnd
                 ).Include(d => d.Doctor)
                 .FirstOrDefaultAsync();
@@ -143,9 +143,16 @@ namespace BusinessLogic.AppointmentService
                     Age = DateTime.UtcNow.Year - a.Patient.DateOfBirth.Year,
                     CreatedAt = a.CreatedAt
                 })
-                .FirstOrDefaultAsync();
-            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking().Where(h => h.PatientId == appointment.PatientId).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
-            if(healthRpt != null)
+                .FirstOrDefaultAsync();           
+            if (appointment == null)
+            {
+                responseObj.IsSuccess = false;
+                responseObj.Message = "Appointment not found.";
+                return responseObj;
+            }
+            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking()
+               .Where(h => h.PatientId == appointment.PatientId && h.CreatedAt.Date == DateTime.Today).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+            if (healthRpt != null)
             {
                 appointment.Weight = healthRpt.Weight != null ? healthRpt.Weight : "0";
                 appointment.Height = healthRpt.Height != null ? healthRpt.Height : "0";
@@ -153,12 +160,6 @@ namespace BusinessLogic.AppointmentService
                 appointment.SystolicBp = healthRpt.SystolicBp != null ? healthRpt.SystolicBp : "0";
                 appointment.SugarBeforeMeal = healthRpt.DiastolicBp != null ? healthRpt.SugarBeforeMeal : "0";
                 appointment.SugarAfterMeal = healthRpt.SugarAfterMeal != null ? healthRpt.SugarAfterMeal : "0";
-            }
-            if (appointment == null)
-            {
-                responseObj.IsSuccess = false;
-                responseObj.Message = "Appointment not found.";
-                return responseObj;
             }
             responseObj.IsSuccess = true;
             responseObj.Message = "Appointment details retrieved successfully.";

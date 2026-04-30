@@ -46,6 +46,7 @@ namespace DataAccess.DBEntities
 
         // Navigation
         public ICollection<Appointment>? Appointments { get; set; }
+        public ICollection<HealthReport>? HealthReports { get; set; }
         public ICollection<MedicalRecord>? MedicalRecords { get; set; }
         public ICollection<Prescription>? Prescriptions { get; set; }
     }

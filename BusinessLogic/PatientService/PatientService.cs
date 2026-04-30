@@ -73,37 +73,58 @@ namespace BusinessLogic.PatientService
         public async Task<ResponseObj<PatientViewModel>> GetPatientById(string Id)
         {
             var response = new ResponseObj<PatientViewModel>();
-            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking().Where(h => h.PatientId == Id).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
-            var patients = await _unitOfWork.PatientRepository.GetWithoutTracking().Where(x => x.Id == Id)
-            .Select(p => new PatientViewModel
+
+            var patient = await _unitOfWork.PatientRepository
+                .GetWithoutTracking()
+                .Where(p => p.Id == Id)
+                .Select(p => new
+                {
+                    Patient = p,
+
+                    // Subquery to get latest health report for today
+                    HealthReport = _unitOfWork.HealthReportRepository
+                        .GetWithoutTracking()
+                        .Where(h => h.PatientId == p.Id && h.CreatedAt.Date == DateTime.Today)
+                        .OrderByDescending(h => h.CreatedAt)
+                        .FirstOrDefault()
+                })
+                .Select(x => new PatientViewModel
+                {
+                    Id = x.Patient.Id,
+                    FirstName = x.Patient.FirstName,
+                    LastName = x.Patient.LastName,
+                    UserId = x.Patient.UserId,
+                    Phone = x.Patient.Phone,
+                    Address = x.Patient.Address,
+                    BloodGroup = x.Patient.BloodGroup,
+                    DateOfBirth = x.Patient.DateOfBirth,
+                    Gender = x.Patient.Gender,
+
+                    // Safe null handling
+                    Weight = x.HealthReport != null ? x.HealthReport.Weight ?? "0" : "0",
+                    Height = x.HealthReport != null ? x.HealthReport.Height ?? "0" : "0",
+                    DiastolicBp = x.HealthReport != null ? x.HealthReport.DiastolicBp ?? "0" : "0",
+                    SystolicBp = x.HealthReport != null ? x.HealthReport.SystolicBp ?? "0" : "0",
+                    SugarBeforeMeal = x.HealthReport != null ? x.HealthReport.SugarBeforeMeal ?? "0" : "0",
+                    SugarAfterMeal = x.HealthReport != null ? x.HealthReport.SugarAfterMeal ?? "0" : "0"
+                })
+                .FirstOrDefaultAsync();
+
+            if (patient == null)
             {
-                Id = p.Id,
-                FirstName = p.FirstName,
-                LastName = p.LastName,
-                UserId = p.UserId,
-                Phone = p.Phone,
-                Address = p.Address,
-                BloodGroup = p.BloodGroup,
-                Weight = healthRpt != null && healthRpt.Weight != null ? healthRpt.Weight : "0",
-                Height = healthRpt != null && healthRpt.Height != null ? healthRpt.Height : "0",
-                DiastolicBp = healthRpt != null && healthRpt.DiastolicBp != null ? healthRpt.DiastolicBp : "0",
-                SystolicBp = healthRpt != null && healthRpt.SystolicBp != null ? healthRpt.SystolicBp : "0",
-                SugarBeforeMeal = healthRpt != null && healthRpt.SugarBeforeMeal != null ? healthRpt.SugarBeforeMeal : "0",
-                SugarAfterMeal = healthRpt != null && healthRpt.SugarAfterMeal != null ? healthRpt.SugarAfterMeal : "0",
-                DateOfBirth = p.DateOfBirth,
-                Gender = p.Gender
-            })
-            .FirstOrDefaultAsync();
-            if (patients == null)
-            {
-                response.IsSuccess = false;
-                response.Message = "Patient not found.";
-                return response;
+                return new ResponseObj<PatientViewModel>
+                {
+                    IsSuccess = false,
+                    Message = "Patient not found."
+                };
             }
-            response.IsSuccess = true;
-            response.Message = "Patients retrieved successfully.";
-            response.Data = patients;
-            return response;
+
+            return new ResponseObj<PatientViewModel>
+            {
+                IsSuccess = true,
+                Message = "Patient retrieved successfully.",
+                Data = patient
+            };
         }
         public async Task<ResponseObj<string>> UpdatePatient(PatientRequestModel patientRequestModel, string patientId)
         {
@@ -113,7 +134,7 @@ namespace BusinessLogic.PatientService
                                                 && p.FirstName == patientRequestModel.FirstName
                                                 && p.LastName == patientRequestModel.LastName))
                                         .FirstOrDefaultAsync();
-            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithTracking().Where(h => h.PatientId == patientId).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithTracking().Where(h => h.PatientId == patientId && h.CreatedAt.Date == DateTime.Today).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
 
             if (patient == null)
             {
@@ -171,6 +192,7 @@ namespace BusinessLogic.PatientService
         public async Task<ResponseObj<List<PatientViewModel>>> GetPatients(string? doctorId = null)
         {
             var response = new ResponseObj<List<PatientViewModel>>();
+
             var patientsQuery = _unitOfWork.PatientRepository.GetWithoutTracking().AsQueryable();
             var patients = await patientsQuery
                 .Select(p => new PatientViewModel

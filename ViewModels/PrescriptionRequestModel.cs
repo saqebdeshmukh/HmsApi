@@ -45,8 +45,9 @@ namespace ViewModels
         public string PatientName { get; set; }
         public string? MedicalRecordId { get; set; }
         public string PatientId { get; set; } = string.Empty;
+        public string AppointmentId { get; set; } = string.Empty;
         public string DoctorId { get; set; } = string.Empty;
-
+        public DateTime CreatedAt {  get; set; }
         public string PatientPhoneNo { get; set; }
         public string Instructions { get; set; }
         public string Diagnosis { get; set; }

@@ -43,6 +43,7 @@ namespace BusinessLogic.PrescriptionService
 
             await _unitOfWork.PrescritpionRepository.Add(prescription);
             await _unitOfWork.Complete();
+            responseObj.Data = prescription.Id;
             responseObj.Message = "Prescription added successfully";
             responseObj.IsSuccess = true;
             return responseObj;
@@ -50,7 +51,7 @@ namespace BusinessLogic.PrescriptionService
         public async Task<ResponseObj<string>> UpdatePrescription(PrescriptionRequestModel prescriptionRequestModel, string PrescriptionId)
         {
             ResponseObj<string> responseObj = new ResponseObj<string>();
-            var prescription = await _unitOfWork.PrescritpionRepository.GetWithTracking().Where(x => x.Id == PrescriptionId).Include(p=>p.Items).FirstOrDefaultAsync();
+            var prescription = await _unitOfWork.PrescritpionRepository.GetWithTracking().Where(x => x.Id == PrescriptionId).Include(p => p.Items).FirstOrDefaultAsync();
             if (prescription == null)
             {
                 responseObj.Message = "Prescription not found";
@@ -97,7 +98,7 @@ namespace BusinessLogic.PrescriptionService
                 PatientId = s.PatientId,
                 PatientName = s.Patient.FirstName + " " + s.Patient.LastName,
                 PrescriptionDate = s.PrescriptionDate,
-                Type=s.Type,
+                Type = s.Type,
                 prescriptionItemRequests = s.Items.Select(p => new PrescriptionItemRequest { MedicineName = p.MedicineName, Dosage = p.Dosage, Duration = p.Duration, MealTiming = p.MealTiming, Frequency = p.Frequency }).ToList(),
             })
                .ToListAsync();
@@ -129,10 +130,13 @@ namespace BusinessLogic.PrescriptionService
                     Specialization = s.Doctor.Specialization,
                     PrescriptionDate = s.PrescriptionDate,
                     Type = s.Type,
+                    AppointmentId = s.MedicalRecord.AppointmentId,
                     DoctorName = s.Doctor.FirstName + " " + s.Doctor.LastName,
                     PatientName = s.Patient.FirstName + " " + s.Patient.LastName,
+                    CreatedAt = s.PrescriptionDate,
                     prescriptionItemRequests = s.Items.Select(p => new PrescriptionItemRequest { MedicineName = p.MedicineName, Dosage = p.Dosage, Duration = p.Duration, MealTiming = p.MealTiming, Frequency = p.Frequency }).ToList(),
                 })
+                .OrderByDescending(o => o.CreatedAt)
                 .FirstOrDefaultAsync();
             if (prescription == null)
             {

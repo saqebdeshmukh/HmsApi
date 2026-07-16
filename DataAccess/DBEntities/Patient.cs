@@ -11,9 +11,8 @@ namespace DataAccess.DBEntities
     {
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
-
-        // User account is optional (created only if email/password provided)
         public string? UserId { get; set; }
+        public int? PatientId { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public User? User { get; set; }
@@ -37,15 +36,12 @@ namespace DataAccess.DBEntities
 
         [StringLength(5)]
         public string BloodGroup { get; set; } = string.Empty;
-
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        // Normalized name for duplicate detection (lowercase, diacritics removed)
+        public string? GeneticFrom { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         [StringLength(200)]
         public string? NormalizedName { get; set; }
-
-        // Navigation
         public ICollection<Appointment>? Appointments { get; set; }
+        public ICollection<PatientDiseases>? PatientDiseases { get; set; }
         public ICollection<HealthReport>? HealthReports { get; set; }
         public ICollection<MedicalRecord>? MedicalRecords { get; set; }
         public ICollection<Prescription>? Prescriptions { get; set; }

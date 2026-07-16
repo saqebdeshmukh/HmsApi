@@ -1,6 +1,8 @@
 using BusinessLogic.AppointmentService;
+using BusinessLogic.CommonService;
 using BusinessLogic.DashboardService;
 using BusinessLogic.DoctorService;
+using BusinessLogic.GeneticDiseaseService;
 using BusinessLogic.MedicalRecordService;
 using BusinessLogic.PatientService;
 using BusinessLogic.PrescriptionService;
@@ -16,7 +18,12 @@ using HealthCareAPI.FilterValidations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 //using FluentValidation.DependencyInjectionExtensions;
 
@@ -43,11 +50,14 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IGeneticDiseaseService, GeneticDiseaseService>();
+builder.Services.AddScoped<BusinessLogic.MedicinesService.IMedicinesService, BusinessLogic.MedicinesService.MedicinesService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 builder.Services.AddScoped<IReceptionistService, ReceptionistService>();
 builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
+builder.Services.AddScoped<ICommonService, CommonService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddCors(options =>
 {
@@ -80,6 +90,36 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 });
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
+// Ensure PatientFiles folder exists and has required permissions after publish
+var patientFilesFolder = Path.Combine(Directory.GetCurrentDirectory(), "PatientFiles");
+if (!Directory.Exists(patientFilesFolder))
+{
+    Directory.CreateDirectory(patientFilesFolder);
+}
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+{
+    try
+    {
+        var dirInfo = new DirectoryInfo(patientFilesFolder);
+        var dirSecurity = dirInfo.GetAccessControl();
+        // Grant Modify access to Everyone so the app can read/write files when published.
+        var everyone = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+        var rule = new FileSystemAccessRule(everyone, FileSystemRights.Modify | FileSystemRights.ReadAndExecute | FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow);
+        dirSecurity.AddAccessRule(rule);
+        dirInfo.SetAccessControl(dirSecurity);
+    }
+    catch (Exception ex)
+    {
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogWarning(ex, "Unable to set folder permissions for PatientFiles.");
+    }
+}
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(patientFilesFolder),
+    RequestPath = "/PatientFiles"
+});
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -98,7 +138,7 @@ using (var scope = app.Services.CreateScope())
                 Id = Guid.NewGuid().ToString(),
                 Email = "admin@healthcare.com",
                 Role = "Admin",
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             };
 
             adminUser.Password = hasher.HashPassword(adminUser, "Admin@123");
@@ -114,7 +154,7 @@ using (var scope = app.Services.CreateScope())
                 Id = Guid.NewGuid().ToString(),
                 Email = "doctor@healthcare.com",
                 Role = "Doctor",
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             };
 
             doctorUser.Password = hasher.HashPassword(doctorUser, "Doctor@123");
@@ -131,7 +171,7 @@ using (var scope = app.Services.CreateScope())
                 Specialization = "General Practice",
                 Phone = "+20 100 000 0001",
                 Email = "doctor@healthcare.com",
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             };
 
             context.Doctors.Add(doctor);

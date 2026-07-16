@@ -46,7 +46,7 @@ CodeCoverage/
 
 # MSBuild Binary and Structured Log
 *.binlog
-
+.vs/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
@@ -55,3 +55,4 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+/.vs/CopilotSnapshots/51294D8F218A38408C50CA891F1046F2/6C52E55E57FDF44686D2A00C65DE447A/4257523D0A22704A93A8CB8B60160F14

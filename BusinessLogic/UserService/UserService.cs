@@ -1,4 +1,5 @@
-﻿using BusinessLogic.TokenService;
+﻿using BusinessLogic.CommonService;
+using BusinessLogic.TokenService;
 using BusinessLogic.UnitOfWork;
 using DataAccess.DBEntities;
 using Microsoft.AspNetCore.Identity;
@@ -16,11 +17,13 @@ namespace BusinessLogic.UserService
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordHasher<User> _hasher;
         private readonly ITokenService _tokenService;
-        public UserService(IUnitOfWork unitOfWork, IPasswordHasher<User> hasher, ITokenService tokenService)
+        private readonly ICommonService _commonService;
+        public UserService(IUnitOfWork unitOfWork, IPasswordHasher<User> hasher, ITokenService tokenService, ICommonService commonService)
         {
             _unitOfWork = unitOfWork;
             _hasher = hasher;
             _tokenService = tokenService;
+            _commonService = commonService;
         }
         public async Task<ResponseObj<string>> CreateUser(UserRequestModel userRequestModel)
         {
@@ -35,6 +38,7 @@ namespace BusinessLogic.UserService
             User user = new User();
             user.Id = Guid.NewGuid().ToString();
             user.Email = userRequestModel.Email;
+            user.CreatedAt = _commonService.GetCurrentIndianTime();
             user.Password = _hasher.HashPassword(user, userRequestModel.Password);
             user.Role = userRequestModel.Role;
             await _unitOfWork.UserRepository.Add(user);
@@ -103,7 +107,7 @@ namespace BusinessLogic.UserService
             var refreshToken = new RefreshToken
             {
                 Token = Guid.NewGuid().ToString(),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = _commonService.GetCurrentIndianTime().AddDays(7),
                 UserId = user.Id
             };
 

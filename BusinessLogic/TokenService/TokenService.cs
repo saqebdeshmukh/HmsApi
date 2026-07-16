@@ -1,4 +1,5 @@
-﻿using DataAccess.DBEntities;
+﻿using BusinessLogic.CommonService;
+using DataAccess.DBEntities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -12,10 +13,11 @@ namespace BusinessLogic.TokenService
     public class TokenService : ITokenService
     {
         private readonly IConfiguration _config;
-
-        public TokenService(IConfiguration config)
+        private readonly ICommonService _commonService;
+        public TokenService(IConfiguration config, ICommonService commonService)
         {
             _config = config;
+            _commonService = commonService;
         }
         public string CreateToken(User user)
         {
@@ -40,7 +42,7 @@ namespace BusinessLogic.TokenService
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(
+                expires: _commonService.GetCurrentIndianTime().AddMinutes(
                     Convert.ToDouble(_config["Jwt:DurationInMinutes"])
                 ),
                 signingCredentials: creds

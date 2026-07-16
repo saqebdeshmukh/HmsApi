@@ -1,4 +1,5 @@
-﻿using Azure;
+using Azure;
+using BusinessLogic.CommonService;
 using BusinessLogic.UnitOfWork;
 using DataAccess.DBEntities;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +13,11 @@ namespace BusinessLogic.DashboardService
     public class DashboardService : IDashboardService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public DashboardService(IUnitOfWork unitOfWork)
+        private readonly ICommonService _commonService;
+        public DashboardService(IUnitOfWork unitOfWork, ICommonService commonService)
         {
             _unitOfWork = unitOfWork;
+            _commonService = commonService;
         }
         public async Task<ResponseObj<DashboardViewModel>> AdminDashboard()
         {
@@ -27,11 +30,11 @@ namespace BusinessLogic.DashboardService
 
                 dashboard.PendingAppointments = await _unitOfWork.AppointmentRepository
             .GetWithoutTracking()
-            .CountAsync(a => a.Status == "Scheduled");
+            .CountAsync(a => (a.Status != AppointmentStatus.Completed || a.Status != AppointmentStatus.Canceled) && a.AppointmentDate == _commonService.GetCurrentIndianTime().Date);
 
                 dashboard.CompletedAppointments = await _unitOfWork.AppointmentRepository
             .GetWithoutTracking()
-            .CountAsync(a => a.Status == "Completed");
+            .CountAsync(a => a.Status == AppointmentStatus.Completed && a.AppointmentDate == _commonService.GetCurrentIndianTime().Date);
 
                 dashboard.TotalMedicalRecords = await _unitOfWork.MedicalRecordRepository
             .GetWithoutTracking()
@@ -73,7 +76,7 @@ namespace BusinessLogic.DashboardService
                 return response;
             }
 
-            var today = DateTime.Today;
+            var today = _commonService.GetCurrentIndianTime().Date;
 
             var dashboard = new DoctorDashboardModel
             {
@@ -83,7 +86,8 @@ namespace BusinessLogic.DashboardService
                     .GetWithoutTracking()
                     //.Include(a => a.Patient)
                     .Where(a => a.DoctorId == doctor.Id && a.AppointmentDate.Date == today)
-                    .OrderBy(a => a.AppointmentDate)
+                    .OrderByDescending(a => a.AppointmentDate)
+                    .Take(10)
                     .Select(a => new AppointmentDto
                     {
                         Id = a.Id,
@@ -97,9 +101,9 @@ namespace BusinessLogic.DashboardService
                     .GetWithoutTracking()
                     //.Include(a => a.Patient)
                     .Where(a => a.DoctorId == doctor.Id &&
-                                a.AppointmentDate > DateTime.Now &&
-                                a.Status == "Scheduled")
-                    .OrderBy(a => a.AppointmentDate)
+                                a.AppointmentDate > _commonService.GetCurrentIndianTime() &&
+                                (a.Status == AppointmentStatus.Scheduled || a.Status == AppointmentStatus.MedicalRecordCreated))
+                    .OrderByDescending(a => a.AppointmentDate)
                     .Take(10)
                     .Select(a => new AppointmentDto
                     {
@@ -113,24 +117,24 @@ namespace BusinessLogic.DashboardService
                 TotalPatientsSeenToday = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
                     .Where(a => a.DoctorId == doctor.Id &&
-                                a.Status == "Completed" &&
+                                a.Status == AppointmentStatus.Completed &&
                                 a.AppointmentDate >= today &&
-                                a.AppointmentDate <= DateTime.Now)
+                                a.AppointmentDate <= _commonService.GetCurrentIndianTime())
                     .Select(a => a.PatientId)
                     .Distinct()
                     .CountAsync(),
 
                 TotalAppointments = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
-                    .CountAsync(a => a.DoctorId == doctor.Id),
+                    .CountAsync(a => a.DoctorId == doctor.Id && a.AppointmentDate.Date == today),
 
                 CompletedAppointments = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
-                    .CountAsync(a => a.DoctorId == doctor.Id && a.Status == "Completed"),
+                    .CountAsync(a => a.DoctorId == doctor.Id && a.Status == AppointmentStatus.Completed && a.AppointmentDate.Date == today),
 
                 PendingAppointments = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
-                    .CountAsync(a => a.DoctorId == doctor.Id && a.Status == "Scheduled")
+                    .CountAsync(a => a.DoctorId == doctor.Id && a.AppointmentDate == today && (a.Status == AppointmentStatus.Scheduled || a.Status == AppointmentStatus.MedicalRecordCreated))
             };
 
             response.IsSuccess = true;
@@ -154,7 +158,7 @@ namespace BusinessLogic.DashboardService
                 return response;
             }
 
-            var today = DateTime.Today;
+            var today = _commonService.GetCurrentIndianTime().Date;
 
             var dashboard = new ReceptionistDashboardModel
             {
@@ -166,23 +170,22 @@ namespace BusinessLogic.DashboardService
 
                 TotalAppointments = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
-                    .CountAsync(),
+                    .CountAsync(a => a.AppointmentDate.Date == today),
 
                 PendingAppointments = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
-                    .CountAsync(a => a.Status == "Scheduled" &&
-                                     a.AppointmentDate >= today &&
-                                     a.AppointmentDate <= DateTime.Now),
+                    .CountAsync(a => (a.Status == AppointmentStatus.Scheduled || a.Status == AppointmentStatus.MedicalRecordCreated) &&
+                                     a.AppointmentDate == today),
 
                 CompletedAppointments = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
-                    .CountAsync(a => a.Status == "Completed"),
+                    .CountAsync(a => a.Status == AppointmentStatus.Completed && a.AppointmentDate.Date == today),
 
                 TodayAppointments = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
                     //.Include(a => a.Patient)
                     .Where(a => a.AppointmentDate.Date == today &&
-                                a.Status == "Scheduled")
+                                a.Status == AppointmentStatus.Scheduled)
                     .OrderBy(a => a.AppointmentDate)
                     .Select(a => new AppointmentDto
                     {
@@ -194,9 +197,8 @@ namespace BusinessLogic.DashboardService
 
                 TotalPatientsSeenToday = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
-                    .Where(a => a.Status == "Completed" &&
-                                a.AppointmentDate >= today &&
-                                a.AppointmentDate <= DateTime.Now)
+                    .Where(a => a.Status == AppointmentStatus.Completed &&
+                                a.AppointmentDate.Date == today)
                     .Select(a => a.PatientId)
                     .Distinct()
                     .CountAsync(),
@@ -204,9 +206,8 @@ namespace BusinessLogic.DashboardService
                 PatientsSeenToday = await _unitOfWork.AppointmentRepository
                     .GetWithoutTracking()
                     //.Include(a => a.Patient)
-                    .Where(a => a.Status == "Completed" &&
-                                a.AppointmentDate >= today &&
-                                a.AppointmentDate <= DateTime.Now)
+                    .Where(a => a.Status == AppointmentStatus.Completed &&
+                                a.AppointmentDate.Date == today)
                     .Select(a => new AppointmentDto
                     {
                         AppointmentDate = a.AppointmentDate,
@@ -220,6 +221,37 @@ namespace BusinessLogic.DashboardService
             response.Message = "Receptionist dashboard retrieved successfully";
             response.Data = dashboard;
 
+            return response;
+        }
+        public async Task<ResponseObj<RedirectToContinueModel>> GetIdToRedirect(string appointmentId)
+        {
+            var response = new ResponseObj<RedirectToContinueModel>();
+            var appointment = await _unitOfWork.AppointmentRepository
+                .GetWithoutTracking()
+                .FirstOrDefaultAsync(a => a.Id == appointmentId);
+            if (appointment == null)
+            {
+                response.IsSuccess = false;
+                response.Message = "Appointment not found";
+                return response;
+            }
+            RedirectToContinueModel redirectToContinueModel = new RedirectToContinueModel();
+            redirectToContinueModel.Id = appointmentId;
+            redirectToContinueModel.Status = appointment.Status;
+            if (appointment.Status == AppointmentStatus.MedicalRecordCreated)
+            {
+                var medicalRecord = await _unitOfWork.MedicalRecordRepository
+                    .GetWithoutTracking().OrderByDescending(mr => mr.CreatedAt)
+                    .FirstOrDefaultAsync(mr => mr.AppointmentId == appointmentId);
+                if(medicalRecord != null)
+                {
+                    redirectToContinueModel.Id = medicalRecord.Id;
+                }
+            }
+
+            response.IsSuccess = true;
+            response.Message = "Redirect ID retrieved successfully";
+            response.Data = redirectToContinueModel;
             return response;
         }
     }

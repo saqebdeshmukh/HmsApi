@@ -26,12 +26,17 @@ namespace HealthCareAPI.Controllers
         [HttpGet("GetMedicalRecordsByPatientId/{patientId}")]
         public async Task<ResponseObj<List<MedicalRecordResponseModel>>> GetMedicalRecordsByPatientId(string patientId)
             => await _medicalRecordService.GetMedicalRecordsByPatientId(patientId);
-        [HttpGet("GetMedicalRecords")]
-        public async Task<ResponseObj<List<MedicalRecordResponseModel>>> GetMedicalRecords()
-            => await _medicalRecordService.GetMedicalRecords();
+        [HttpPost("GetMedicalRecords")]
+        public async Task<PagedResponse<MedicalRecordResponseModel>> GetMedicalRecords(PaginationRequest request)
+            => await _medicalRecordService.GetMedicalRecords(request);
         [HttpGet("GetMedicalRecordById/{id}")]
-        public async Task<ResponseObj<List<MedicalRecordResponseModel>>> GetMedicalRecordById(string id)
+        public async Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordById(string id)
             => await _medicalRecordService.GetMedicalRecordById(id);
+        
+        [HttpGet("GetMedicalRecordByIdForPres/{id}")]
+        public async Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordByIdForPres(string id)
+            => await _medicalRecordService.GetMedicalRecordByIdForPres(id);
+
         [HttpGet("GetMedicalRecordForEdit/{id}")]
         public async Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordForEdit(string id)
             => await _medicalRecordService.GetMedicalRecordForEdit(id);

@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
+
 
 namespace ViewModels
 {
@@ -12,25 +13,29 @@ namespace ViewModels
         public string DoctorName { get; set; } = string.Empty;
         public string PatientName { get; set; } = string.Empty;
         public DateTime AppointmentDate { get; set; }
-        public string Status { get; set; } = string.Empty;
+        public AppointmentStatus Status { get; set; } = AppointmentStatus.Scheduled;
         public string Reason { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
     public class AppointmentRequestModel
     {
         public string PatientId { get; set; } = string.Empty;
         public string DoctorId { get; set; } = string.Empty;
-        public string Status { get; set; } = string.Empty;
+        public AppointmentStatus Status { get; set; } = AppointmentStatus.Scheduled;
         public string Reason { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
+        public DateTime AppointmentDate { get; set; }
+        public string? Weight { get; set; }
+        public string? Height { get; set; }
+        public string? BloodPressure { get; set; }
+        public string? SugarAfterMeal { get; set; }
+        public string? SugarBeforeMeal { get; set; }
     }
-    public class DoctorDetailAppointmentsViewModel
+   public class RedirectToContinueModel
     {
-        public List<AppointmentDto> Appointments { get; set; }
-        public List<AppointmentDto> TodayAppointments { get; set; }
-        public List<AppointmentDto> CompletedAppointments { get; set; }
-        public List<AppointmentDto> UpcomingAppointments { get; set; }
+        public string Id { get; set; }
+        public AppointmentStatus Status { get; set; }
     }
     public class AppointmentDetailsViewModel
     {
@@ -48,15 +53,14 @@ namespace ViewModels
         public string BloodGroup { get; set; }
         public string? Weight { get; set; }
         public string? Height { get; set; }
-        public string? SystolicBp { get; set; }
-        public string? DiastolicBp { get; set; }
+        public string? BloodPressure { get; set; }
         public string? SugarAfterMeal { get; set; }
         public string? SugarBeforeMeal { get; set; }
         public int Age { get; set; }
         public DateTime AppointmentDate { get; set; }
-        public string Status { get; set; }
+        public AppointmentStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
-       
-
+       public string GeneticFrom { get; set; }
+        public List<GeneticDiseaseViewModel> GeneticDiseases { get; set; }
     }
 }

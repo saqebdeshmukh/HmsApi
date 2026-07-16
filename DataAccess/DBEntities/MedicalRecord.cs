@@ -29,14 +29,14 @@ namespace DataAccess.DBEntities
         [ForeignKey(nameof(AppointmentId))]
         public Appointment Appointment { get; set; } = null!;
 
-        public DateTime VisitDate { get; set; } = DateTime.Now;
+        public DateTime VisitDate { get; set; } = DateTime.UtcNow;
 
         public string Diagnosis { get; set; } = string.Empty;
         public string Symptoms { get; set; } = string.Empty;
         public string Treatment { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         // One-to-Many
         public ICollection<Prescription>? Prescriptions { get; set; }

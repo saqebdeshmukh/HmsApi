@@ -1,4 +1,5 @@
-﻿using BusinessLogic.UnitOfWork;
+﻿using BusinessLogic.CommonService;
+using BusinessLogic.UnitOfWork;
 using DataAccess.DBEntities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,9 +12,11 @@ namespace BusinessLogic.DoctorService
     public class DoctorService : IDoctorService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public DoctorService(IUnitOfWork unitOfWork)
+        private readonly ICommonService _commonService;
+        public DoctorService(IUnitOfWork unitOfWork, ICommonService commonService)
         {
             _unitOfWork = unitOfWork;
+            _commonService = commonService;
         }
         public async Task<ResponseObj<string>> CreateDoctor(DoctorRequestModel doctorRequestModel)
         {
@@ -25,7 +28,8 @@ namespace BusinessLogic.DoctorService
                 Specialization = doctorRequestModel.Specialization,
                 Email = doctorRequestModel.Email,
                 Phone = doctorRequestModel.PhoneNumber,
-                ConsultationFee = doctorRequestModel.ConsultationFee
+                ConsultationFee = doctorRequestModel.ConsultationFee,
+                CreatedAt = _commonService.GetCurrentIndianTime()
             };
             await _unitOfWork.DoctorRepository.Add(doctor);
             await _unitOfWork.Complete();

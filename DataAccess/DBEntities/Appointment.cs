@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using ViewModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
@@ -25,10 +26,10 @@ namespace DataAccess.DBEntities
         public Doctor Doctor { get; set; } = null!;
 
         public DateTime AppointmentDate { get; set; }
-        public string Status { get; set; } = string.Empty;
+        public AppointmentStatus Status { get; set; } = AppointmentStatus.Scheduled;
         public string Reason { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         // One-to-One
         public MedicalRecord? MedicalRecord { get; set; }
     }

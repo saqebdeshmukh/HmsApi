@@ -11,8 +11,7 @@ namespace ViewModels
         public string AppointmentId { get; set; } = string.Empty;
         public string? Weight { get; set; }
         public string? Height { get; set; }
-        public string? SystolicBp { get; set; }
-        public string? DiastolicBp { get; set; }
+        public string? BloodPressure { get; set; }
         public string? SugarAfterMeal { get; set; }
         public string? SugarBeforeMeal { get; set; }
         public string Diagnosis { get; set; } = string.Empty;
@@ -25,6 +24,7 @@ namespace ViewModels
         public string Id { get; set; }
         public string PatientId { get; set; }
         public string PatientName { get; set; }
+        public string Gender { get; set; }
         public string PatientPhone { get; set; }
         public string BloodGroup { get; set; }
         public string DoctorId { get; set; }
@@ -38,12 +38,15 @@ namespace ViewModels
         public string Notes { get; set; }
         public string? Weight { get; set; }
         public string? Height { get; set; }
-        public string? SystolicBp { get; set; }
-        public string? DiastolicBp { get; set; }
+        public string? BloodPressure { get; set; }
         public string? SugarAfterMeal { get; set; }
         public string? SugarBeforeMeal { get; set; }
+        public string? Diabetic { get; set; }
+        public string? HyperTension { get; set; }
+        public string? GeneticFrom { get; set; }
         public DateTime AppointmentDate { get; set; }
         public List<PrescriptionViewModel> Prescriptions { get; set; }
+        public List<GeneticDiseaseViewModel> GeneticDiseases { get; set; }
         public AppointmentViewModel? Appointment { get; set; }
     }
 }

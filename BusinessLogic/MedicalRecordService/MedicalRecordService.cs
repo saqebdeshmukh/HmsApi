@@ -1,4 +1,6 @@
-﻿using BusinessLogic.UnitOfWork;
+using BusinessLogic.CommonService;
+using BusinessLogic.UnitOfWork;
+using BusinessLogic.ExtensionMethods;
 using DataAccess.DBEntities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,16 +13,18 @@ namespace BusinessLogic.MedicalRecordService
     public class MedicalRecordService : IMedicalRecordService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public MedicalRecordService(IUnitOfWork unitOfWork)
+        private readonly ICommonService _commonService;
+        public MedicalRecordService(IUnitOfWork unitOfWork, ICommonService commonService)
         {
             _unitOfWork = unitOfWork;
+            _commonService = commonService;
         }
         public async Task<ResponseObj<string>> CreateMedicalRecord(MedicalRecordRequestModel medicalRecordRequestModel)
         {
             ResponseObj<string> responseObj = new ResponseObj<string>();
             MedicalRecord medicalRecord = new MedicalRecord();
             var healthRpt = await _unitOfWork.HealthReportRepository.GetWithTracking()
-                .Where(h => h.PatientId == medicalRecordRequestModel.PatientId && h.CreatedAt.Date == DateTime.Today).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+                .Where(h => h.PatientId == medicalRecordRequestModel.PatientId && h.CreatedAt.Date == _commonService.GetCurrentIndianTime().Date).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
             var appointments = await _unitOfWork.AppointmentRepository.GetWithoutTracking().Where(x => x.PatientId == medicalRecordRequestModel.PatientId).FirstOrDefaultAsync();
             if (appointments == null)
             {
@@ -29,7 +33,7 @@ namespace BusinessLogic.MedicalRecordService
                 return responseObj;
             }
             medicalRecord.Id = Guid.NewGuid().ToString();
-            medicalRecord.VisitDate = DateTime.UtcNow;
+            medicalRecord.VisitDate = _commonService.GetCurrentIndianTime();
             medicalRecord.AppointmentId = medicalRecordRequestModel.AppointmentId;
             medicalRecord.Treatment = medicalRecordRequestModel.Treatment;
             medicalRecord.Diagnosis = medicalRecordRequestModel.Diagnosis;
@@ -37,13 +41,12 @@ namespace BusinessLogic.MedicalRecordService
             medicalRecord.PatientId = medicalRecordRequestModel.PatientId;
             medicalRecord.Symptoms = medicalRecordRequestModel.Symptoms;
             medicalRecord.Notes = medicalRecordRequestModel.Notes;
-            medicalRecord.CreatedAt = DateTime.UtcNow;
+            medicalRecord.CreatedAt = _commonService.GetCurrentIndianTime();
             bool isSameHealthReport =
         healthRpt != null &&
         (healthRpt.Weight ?? "") == (medicalRecordRequestModel.Weight ?? "") &&
         (healthRpt.Height ?? "") == (medicalRecordRequestModel.Height ?? "") &&
-        (healthRpt.SystolicBp ?? "") == (medicalRecordRequestModel.SystolicBp ?? "") &&
-        (healthRpt.DiastolicBp ?? "") == (medicalRecordRequestModel.DiastolicBp ?? "") &&
+        (healthRpt.BloodPressure ?? "") == (medicalRecordRequestModel.BloodPressure ?? "") &&
         (healthRpt.SugarAfterMeal ?? "") == (medicalRecordRequestModel.SugarAfterMeal ?? "") &&
         (healthRpt.SugarBeforeMeal ?? "") == (medicalRecordRequestModel.SugarBeforeMeal ?? "");
 
@@ -54,11 +57,10 @@ namespace BusinessLogic.MedicalRecordService
                     PatientId = medicalRecordRequestModel.PatientId,
                     Weight = medicalRecordRequestModel.Weight,
                     Height = medicalRecordRequestModel.Height,
-                    SystolicBp = medicalRecordRequestModel.SystolicBp,
-                    DiastolicBp = medicalRecordRequestModel.DiastolicBp,
+                    BloodPressure = medicalRecordRequestModel.BloodPressure,
                     SugarBeforeMeal = medicalRecordRequestModel.SugarBeforeMeal,
                     SugarAfterMeal = medicalRecordRequestModel.SugarAfterMeal,
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = _commonService.GetCurrentIndianTime()
                 };
 
                 await _unitOfWork.HealthReportRepository.Add(healthReport);
@@ -67,7 +69,7 @@ namespace BusinessLogic.MedicalRecordService
             await _unitOfWork.MedicalRecordRepository.Add(medicalRecord);
             await _unitOfWork.Complete();
             var appointment = await _unitOfWork.AppointmentRepository.GetWithTracking().Where(x => x.Id == medicalRecord.AppointmentId).FirstOrDefaultAsync();
-            appointment.Status = "Medical Record Created";
+            appointment.Status = AppointmentStatus.MedicalRecordCreated;
             await _unitOfWork.AppointmentRepository.Update(appointment);
             await _unitOfWork.Complete();
             responseObj.Data = medicalRecord.Id;
@@ -79,7 +81,7 @@ namespace BusinessLogic.MedicalRecordService
         {
             ResponseObj<string> responseObj = new ResponseObj<string>();
             var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking()
-                .Where(h => h.PatientId == medicalRecordRequestModel.PatientId && h.CreatedAt.Date == DateTime.Today)
+                .Where(h => h.PatientId == medicalRecordRequestModel.PatientId && h.CreatedAt.Date == _commonService.GetCurrentIndianTime().Date)
                 .OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
             var medicalRecord = await _unitOfWork.MedicalRecordRepository.GetWithoutTracking().Where(x => x.Id == medicalRecordId).FirstOrDefaultAsync();
             if (medicalRecord == null)
@@ -88,20 +90,19 @@ namespace BusinessLogic.MedicalRecordService
                 responseObj.Message = "Medical record not found";
                 return responseObj;
             }
-            medicalRecord.VisitDate = DateTime.UtcNow;
+            medicalRecord.VisitDate = _commonService.GetCurrentIndianTime();
             medicalRecord.Treatment = medicalRecordRequestModel.Treatment;
             medicalRecord.Diagnosis = medicalRecordRequestModel.Diagnosis;
             medicalRecord.DoctorId = medicalRecordRequestModel.DoctorId;
             medicalRecord.PatientId = medicalRecordRequestModel.PatientId;
             medicalRecord.Symptoms = medicalRecordRequestModel.Symptoms;
             medicalRecord.Notes = medicalRecordRequestModel.Notes;
-            medicalRecord.CreatedAt = DateTime.UtcNow;
+            medicalRecord.CreatedAt = _commonService.GetCurrentIndianTime();
             bool isSameHealthReport =
         healthRpt != null &&
         (healthRpt.Weight ?? "") == (medicalRecordRequestModel.Weight ?? "") &&
         (healthRpt.Height ?? "") == (medicalRecordRequestModel.Height ?? "") &&
-        (healthRpt.SystolicBp ?? "") == (medicalRecordRequestModel.SystolicBp ?? "") &&
-        (healthRpt.DiastolicBp ?? "") == (medicalRecordRequestModel.DiastolicBp ?? "") &&
+        (healthRpt.BloodPressure ?? "") == (medicalRecordRequestModel.BloodPressure ?? "") &&
         (healthRpt.SugarAfterMeal ?? "") == (medicalRecordRequestModel.SugarAfterMeal ?? "") &&
         (healthRpt.SugarBeforeMeal ?? "") == (medicalRecordRequestModel.SugarBeforeMeal ?? "");
 
@@ -112,11 +113,10 @@ namespace BusinessLogic.MedicalRecordService
                     PatientId = medicalRecordRequestModel.PatientId,
                     Weight = medicalRecordRequestModel.Weight,
                     Height = medicalRecordRequestModel.Height,
-                    SystolicBp = medicalRecordRequestModel.SystolicBp,
-                    DiastolicBp = medicalRecordRequestModel.DiastolicBp,
+                    BloodPressure = medicalRecordRequestModel.BloodPressure,
                     SugarBeforeMeal = medicalRecordRequestModel.SugarBeforeMeal,
                     SugarAfterMeal = medicalRecordRequestModel.SugarAfterMeal,
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = _commonService.GetCurrentIndianTime()
                 };
 
                 await _unitOfWork.HealthReportRepository.Add(healthReport);
@@ -131,7 +131,7 @@ namespace BusinessLogic.MedicalRecordService
         {
             ResponseObj<List<MedicalRecordResponseModel>> responseObj = new ResponseObj<List<MedicalRecordResponseModel>>();
             var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking()
-                .Where(h => h.PatientId == patientId && h.CreatedAt.Date == DateTime.Today).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+                .Where(h => h.PatientId == patientId && h.CreatedAt.Date == _commonService.GetCurrentIndianTime().Date).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
             var medicalRecords = await _unitOfWork.MedicalRecordRepository.GetWithoutTracking().Where(x => x.PatientId == patientId).
                 Select(x => new MedicalRecordResponseModel
                 {
@@ -148,9 +148,8 @@ namespace BusinessLogic.MedicalRecordService
                     Notes = x.Notes,
                     Weight = healthRpt != null && healthRpt.Weight != null ? healthRpt.Weight : "0",
                     Height = healthRpt != null && healthRpt.Height != null ? healthRpt.Height : "0",
-                    DiastolicBp = healthRpt != null && healthRpt.DiastolicBp != null ? healthRpt.DiastolicBp : "0",
-                    SystolicBp = healthRpt != null && healthRpt.SystolicBp != null ? healthRpt.SystolicBp : "0",
-                    SugarBeforeMeal = healthRpt != null && healthRpt.DiastolicBp != null ? healthRpt.SugarBeforeMeal : "0",
+                    BloodPressure = healthRpt != null && healthRpt.BloodPressure != null ? healthRpt.BloodPressure : "0",
+                    SugarBeforeMeal = healthRpt != null && healthRpt.SugarBeforeMeal != null ? healthRpt.SugarBeforeMeal : "0",
                     SugarAfterMeal = healthRpt != null && healthRpt.SugarAfterMeal != null ? healthRpt.SugarAfterMeal : "0",
                 }).ToListAsync();
             if (medicalRecords == null || medicalRecords.Count == 0)
@@ -164,10 +163,65 @@ namespace BusinessLogic.MedicalRecordService
             responseObj.Data = medicalRecords;
             return responseObj;
         }
-        public async Task<ResponseObj<List<MedicalRecordResponseModel>>> GetMedicalRecords()
+        public async Task<PagedResponse<MedicalRecordResponseModel>> GetMedicalRecords(PaginationRequest request)
         {
-            ResponseObj<List<MedicalRecordResponseModel>> responseObj = new ResponseObj<List<MedicalRecordResponseModel>>();
-            var medicalRecords = await _unitOfWork.MedicalRecordRepository.GetWithoutTracking()
+            var query = _unitOfWork.MedicalRecordRepository
+                .GetWithoutTracking();
+
+            // Search
+            query = query.ApplySearch(
+                request.Search,
+                x => x.Patient.FirstName,
+                x => x.Patient.LastName,
+                x => x.Patient.Phone);
+
+            // Date Filter
+            if (request.Filters != null &&
+                request.Filters.TryGetValue("visitDate", out var visitDate) &&
+                !string.IsNullOrWhiteSpace(visitDate))
+            {
+                if (DateTime.TryParse(visitDate, out var selectedDate))
+                {
+                    selectedDate = selectedDate.Date;
+
+                    query = query.Where(x => x.VisitDate.Date == selectedDate);
+                }
+            }
+
+            var totalCount = await query.CountAsync();
+
+            // Sorting
+            if (!string.IsNullOrWhiteSpace(request.SortColumn))
+            {
+                if (request.SortColumn.Equals("patientName", StringComparison.OrdinalIgnoreCase))
+                {
+                    query = request.SortDirection?.Equals("desc", StringComparison.OrdinalIgnoreCase) == true
+                        ? query.OrderByDescending(x => x.Patient.FirstName)
+                               .ThenByDescending(x => x.Patient.LastName)
+                        : query.OrderBy(x => x.Patient.FirstName)
+                               .ThenBy(x => x.Patient.LastName);
+                }
+                else if (request.SortColumn.Equals("doctorName", StringComparison.OrdinalIgnoreCase))
+                {
+                    query = request.SortDirection?.Equals("desc", StringComparison.OrdinalIgnoreCase) == true
+                        ? query.OrderByDescending(x => x.Doctor.FirstName)
+                               .ThenByDescending(x => x.Doctor.LastName)
+                        : query.OrderBy(x => x.Doctor.FirstName)
+                               .ThenBy(x => x.Doctor.LastName);
+                }
+                else
+                {
+                    query = query.ApplySorting(request.SortColumn, request.SortDirection);
+                }
+            }
+            else
+            {
+                query = query.OrderByDescending(x => x.CreatedAt);
+            }
+
+            // Pagination
+            var medicalRecords = await query
+                .ApplyPagination(request.PageNumber, request.PageSize)
                 .Select(x => new MedicalRecordResponseModel
                 {
                     Id = x.Id,
@@ -176,27 +230,28 @@ namespace BusinessLogic.MedicalRecordService
                     PatientName = x.Patient.FirstName + " " + x.Patient.LastName,
                     DoctorName = x.Doctor.FirstName + " " + x.Doctor.LastName,
                     AppointmentId = x.AppointmentId,
-                    VisitDate = x.CreatedAt,
+                    VisitDate = x.VisitDate,
                     Diagnosis = x.Diagnosis,
                     Symptoms = x.Symptoms,
                     Treatment = x.Treatment,
                     Notes = x.Notes
-                }).OrderByDescending(o=>o.VisitDate).ToListAsync();
-            if (medicalRecords == null || medicalRecords.Count == 0)
+                })
+                .ToListAsync();
+
+            return new PagedResponse<MedicalRecordResponseModel>
             {
-                responseObj.IsSuccess = false;
-                responseObj.Message = "No medical records found";
-                return responseObj;
-            }
-            responseObj.IsSuccess = true;
-            responseObj.Message = "Medical records retrieved successfully";
-            responseObj.Data = medicalRecords;
-            return responseObj;
+                IsSuccess = true,
+                Message = "Medical records retrieved successfully.",
+                Data = medicalRecords,
+                TotalCount = totalCount,
+                PageNumber = request.PageNumber,
+                PageSize = request.PageSize
+            };
         }
-        public async Task<ResponseObj<List<MedicalRecordResponseModel>>> GetMedicalRecordById(string id)
+        public async Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordById(string id)
         {
-            ResponseObj<List<MedicalRecordResponseModel>> responseObj = new ResponseObj<List<MedicalRecordResponseModel>>();
-            var medicalRecords = await _unitOfWork.MedicalRecordRepository.GetWithoutTracking()
+            ResponseObj<MedicalRecordResponseModel> responseObj = new ResponseObj<MedicalRecordResponseModel>();
+            var medicalRecord = await _unitOfWork.MedicalRecordRepository.GetWithoutTracking()
                 .Where(x => x.Id == id)
                 .Select(x => new MedicalRecordResponseModel
                 {
@@ -209,11 +264,19 @@ namespace BusinessLogic.MedicalRecordService
                     Specialization = x.Doctor.Specialization,
                     AppointmentId = x.AppointmentId,
                     VisitDate = x.VisitDate,
+                    Gender = x.Patient.Gender,
                     Diagnosis = x.Diagnosis,
                     PatientPhone = x.Patient.Phone,
+                    GeneticFrom = x.Patient.GeneticFrom,
                     Symptoms = x.Symptoms,
                     Treatment = x.Treatment,
                     Notes = x.Notes,
+                    GeneticDiseases = x.Patient.PatientDiseases.Select(g => new GeneticDiseaseViewModel
+                    {
+                        DiseaseName = g.GeneticDisease.DiseaseName,
+                        Medicines = g.Medicines,
+                        ColorCode = g.GeneticDisease.ColorCode
+                    }).ToList(),
                     Appointment = x.Appointment != null ? new AppointmentViewModel
                     {
                         Id = x.Appointment.Id,
@@ -228,6 +291,7 @@ namespace BusinessLogic.MedicalRecordService
                         Id = p.Id,
                         MedicalRecordId = p.MedicalRecordId,
                         Instructions = p.Instructions,
+                        Type = p.Type,
                         prescriptionItemRequests = p.Items.Select(pi => new PrescriptionItemRequest
                         {
                             Id = pi.Id,
@@ -237,22 +301,22 @@ namespace BusinessLogic.MedicalRecordService
                         }).ToList()
                     }).ToList(),
 
-                }).ToListAsync();
-            if (medicalRecords == null || medicalRecords.Count == 0)
+                }).FirstOrDefaultAsync();
+            if (medicalRecord == null)
             {
                 responseObj.IsSuccess = false;
-                responseObj.Message = "No medical records found";
+                responseObj.Message = "No medical record found";
                 return responseObj;
             }
             responseObj.IsSuccess = true;
-            responseObj.Message = "Medical records retrieved successfully";
-            responseObj.Data = medicalRecords;
+            responseObj.Message = "Medical record retrieved successfully";
+            responseObj.Data = medicalRecord;
             return responseObj;
         }
         public async Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordForEdit(string id)
         {
             ResponseObj<MedicalRecordResponseModel> responseObj = new ResponseObj<MedicalRecordResponseModel>();
-            var medicalRecords = await _unitOfWork.MedicalRecordRepository.GetWithTracking().Where(x => x.Id == id)
+            var medicalRecord = await _unitOfWork.MedicalRecordRepository.GetWithTracking().Where(x => x.Id == id)
                 .Select(x => new MedicalRecordResponseModel
                 {
                     Id = x.Id,
@@ -265,34 +329,79 @@ namespace BusinessLogic.MedicalRecordService
                     Diagnosis = x.Diagnosis,
                     Symptoms = x.Symptoms,
                     Treatment = x.Treatment,
+                    PatientPhone = x.Patient.Phone,
                     Notes = x.Notes,
-                    AppointmentDate = x.Appointment.AppointmentDate
+                    Gender = x.Patient.Gender,
+                    AppointmentDate = x.Appointment.AppointmentDate,
+                    GeneticFrom = x.Patient.GeneticFrom,
+                    GeneticDiseases = x.Patient.PatientDiseases.Select(g => new GeneticDiseaseViewModel
+                    {
+                        DiseaseName = g.GeneticDisease.DiseaseName,
+                        Medicines = g.Medicines,
+                        ColorCode = g.GeneticDisease.ColorCode
+                    }).ToList(),
                 }).FirstOrDefaultAsync();
-            if (medicalRecords != null)
+            if (medicalRecord != null)
             {
                 var healthRpt = await _unitOfWork.HealthReportRepository.GetWithoutTracking()
-                    .Where(h => h.PatientId == medicalRecords.PatientId && h.CreatedAt.Date == DateTime.Today)
+                    .Where(h => h.PatientId == medicalRecord.PatientId && h.CreatedAt.Date == _commonService.GetCurrentIndianTime().Date)
                     .OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
                 if (healthRpt != null)
                 {
-                    medicalRecords.Weight = healthRpt.Weight != null ? healthRpt.Weight : "0";
-                    medicalRecords.Height = healthRpt.Height != null ? healthRpt.Height : "0";
-                    medicalRecords.DiastolicBp = healthRpt.DiastolicBp != null ? healthRpt.DiastolicBp : "0";
-                    medicalRecords.SystolicBp = healthRpt.SystolicBp != null ? healthRpt.SystolicBp : "0";
-                    medicalRecords.SugarBeforeMeal = healthRpt.DiastolicBp != null ? healthRpt.SugarBeforeMeal : "0";
-                    medicalRecords.SugarAfterMeal = healthRpt.SugarAfterMeal != null ? healthRpt.SugarAfterMeal : "0";
+                    medicalRecord.Weight = healthRpt.Weight != null ? healthRpt.Weight : "0";
+                    medicalRecord.Height = healthRpt.Height != null ? healthRpt.Height : "0";
+                    medicalRecord.BloodPressure = healthRpt.BloodPressure != null ? healthRpt.BloodPressure : "0";
+                    medicalRecord.SugarBeforeMeal = healthRpt.SugarBeforeMeal != null ? healthRpt.SugarBeforeMeal : "0";
+                    medicalRecord.SugarAfterMeal = healthRpt.SugarAfterMeal != null ? healthRpt.SugarAfterMeal : "0";
                 }
             }
 
-            if (medicalRecords == null)
+            if (medicalRecord == null)
             {
                 responseObj.IsSuccess = false;
-                responseObj.Message = "No medical records found";
+                responseObj.Message = "No medical record found";
                 return responseObj;
             }
             responseObj.IsSuccess = true;
-            responseObj.Message = "Medical records retrieved successfully";
-            responseObj.Data = medicalRecords;
+            responseObj.Message = "Medical record retrieved successfully";
+            responseObj.Data = medicalRecord;
+            return responseObj;
+        }
+        public async Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordByIdForPres(string id)
+        {
+            ResponseObj<MedicalRecordResponseModel> responseObj = new ResponseObj<MedicalRecordResponseModel>();
+            var medicalRecord = await _unitOfWork.MedicalRecordRepository.GetWithoutTracking()
+                .Where(x => x.Id == id)
+                .Select(x => new MedicalRecordResponseModel
+                {
+                    Id = x.Id,
+                    PatientId = x.PatientId,
+                    DoctorId = x.DoctorId,
+                    PatientName = x.Patient.FirstName + " " + x.Patient.LastName,
+                    BloodGroup = x.Patient.BloodGroup,
+                    AppointmentId = x.AppointmentId,
+                    VisitDate = x.Appointment.AppointmentDate,
+                    //VisitDate = x.VisitDate,
+                    Gender = x.Patient.Gender,
+                    PatientPhone = x.Patient.Phone,
+                    GeneticFrom = x.Patient.GeneticFrom,                    
+                    GeneticDiseases = x.Patient.PatientDiseases.Select(g => new GeneticDiseaseViewModel
+                    {
+                        DiseaseName = g.GeneticDisease.DiseaseName,
+                        Medicines = g.Medicines,
+                        ColorCode = g.GeneticDisease.ColorCode
+                    }).ToList()
+
+                }).FirstOrDefaultAsync();
+            if (medicalRecord == null)
+            {
+                responseObj.IsSuccess = false;
+                responseObj.Message = "No medical record found";
+                return responseObj;
+            }
+            responseObj.IsSuccess = true;
+            responseObj.Message = "Medical record retrieved successfully";
+            responseObj.Data = medicalRecord;
             return responseObj;
         }
     }

@@ -10,5 +10,6 @@ namespace BusinessLogic.DashboardService
         Task<ResponseObj<DashboardViewModel>> AdminDashboard();
         Task<ResponseObj<DoctorDashboardModel>> GetDoctorDashboard(string userId);
         Task<ResponseObj<ReceptionistDashboardModel>> GetReceptionistDashboard(string userId);
+        Task<ResponseObj<RedirectToContinueModel>> GetIdToRedirect(string appointmentId);
     }
 }

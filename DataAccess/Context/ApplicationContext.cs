@@ -1,5 +1,6 @@
-﻿using DataAccess.DBEntities;
+using DataAccess.DBEntities;
 using Microsoft.EntityFrameworkCore;
+using ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,10 @@ namespace DataAccess.Context
         public DbSet<DoctorAvailabilitySlot> DoctorAvailabilitySlots { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<HealthReport> HealthReports { get; set; }
+        public DbSet<PatientReportDocs> PatientReportDocs { get; set; }
+        public DbSet<Medicines> Medicines { get; set; }
+        public DbSet<GeneticDisease> GeneticDisease { get; set; }
+        public DbSet<PatientDiseases> PatientDiseases { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -63,6 +68,13 @@ namespace DataAccess.Context
             modelBuilder.Entity<Prescription>().ToTable("Prescriptions");
             modelBuilder.Entity<PrescriptionItem>().ToTable("PrescriptionItems");
             modelBuilder.Entity<DoctorAvailabilitySlot>().ToTable("DoctorAvailabilitySlots");
+            modelBuilder.HasSequence<int>("PatientId")
+       .StartsAt(1000)
+       .IncrementsBy(1);
+
+            modelBuilder.Entity<Patient>()
+                .Property(p => p.PatientId)
+                .HasDefaultValueSql("NEXT VALUE FOR PatientId");
         }
 
         // =========================
@@ -94,7 +106,7 @@ namespace DataAccess.Context
         // =========================
         private void ConfigurePatientRelations(ModelBuilder modelBuilder)
         {
-           
+
 
             // Patient → Appointments
             modelBuilder.Entity<Patient>()
@@ -117,6 +129,7 @@ namespace DataAccess.Context
                 .HasForeignKey(pr => pr.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
+
 
         // =========================
         // DOCTOR RELATIONS
@@ -162,6 +175,13 @@ namespace DataAccess.Context
                 .WithOne(m => m.Appointment)
                 .HasForeignKey<MedicalRecord>(m => m.AppointmentId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Appointment>()
+                .Property(a => a.Status)
+                .HasConversion(
+                    v => v.ToStatusString(),
+                    v => v.ToAppointmentStatus()
+                );
         }
 
         // =========================
@@ -207,6 +227,6 @@ namespace DataAccess.Context
             modelBuilder.Entity<Doctor>()
                 .Property(d => d.ConsultationFee)
                 .HasColumnType("decimal(18,2)");
-        }        
+        }
     }
 }

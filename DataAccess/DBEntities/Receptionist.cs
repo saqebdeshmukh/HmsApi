@@ -27,6 +27,6 @@ namespace DataAccess.DBEntities
         public string Phone { get; set; } = string.Empty;
 
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

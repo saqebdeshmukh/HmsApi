@@ -22,6 +22,9 @@ namespace DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.HasSequence<int>("PatientId")
+                .StartsAt(1000L);
+
             modelBuilder.Entity("DataAccess.DBEntities.Appointment", b =>
                 {
                     b.Property<string>("Id")
@@ -136,17 +139,36 @@ namespace DataAccess.Migrations
                     b.ToTable("DoctorAvailabilitySlots", (string)null);
                 });
 
+            modelBuilder.Entity("DataAccess.DBEntities.GeneticDisease", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ColorCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DiseaseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GeneticDisease");
+                });
+
             modelBuilder.Entity("DataAccess.DBEntities.HealthReport", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DiastolicBp")
+                    b.Property<string>("BloodPressure")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Height")
                         .HasMaxLength(20)
@@ -160,10 +182,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SugarBeforeMeal")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("SystolicBp")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -229,6 +247,34 @@ namespace DataAccess.Migrations
                     b.ToTable("MedicalRecords", (string)null);
                 });
 
+            modelBuilder.Entity("DataAccess.DBEntities.Medicines", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Dosage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Duration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Frequency")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MealTiming")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Medicines");
+                });
+
             modelBuilder.Entity("DataAccess.DBEntities.Patient", b =>
                 {
                     b.Property<string>("Id")
@@ -260,6 +306,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<string>("GeneticFrom")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -268,6 +317,11 @@ namespace DataAccess.Migrations
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("PatientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR PatientId");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -289,6 +343,54 @@ namespace DataAccess.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Patients", (string)null);
+                });
+
+            modelBuilder.Entity("DataAccess.DBEntities.PatientDiseases", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("GeneticDiseaseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Medicines")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GeneticDiseaseId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("PatientDiseases");
+                });
+
+            modelBuilder.Entity("DataAccess.DBEntities.PatientReportDocs", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DocAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("PatientReportDocs");
                 });
 
             modelBuilder.Entity("DataAccess.DBEntities.Prescription", b =>
@@ -350,12 +452,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Dosage")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Duration")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -363,7 +463,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MealTiming")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -519,7 +618,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.DBEntities.HealthReport", b =>
                 {
                     b.HasOne("DataAccess.DBEntities.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("HealthReports")
                         .HasForeignKey("PatientId");
 
                     b.Navigation("Patient");
@@ -560,6 +659,32 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DataAccess.DBEntities.PatientDiseases", b =>
+                {
+                    b.HasOne("DataAccess.DBEntities.GeneticDisease", "GeneticDisease")
+                        .WithMany()
+                        .HasForeignKey("GeneticDiseaseId");
+
+                    b.HasOne("DataAccess.DBEntities.Patient", "Patient")
+                        .WithMany("PatientDiseases")
+                        .HasForeignKey("PatientId");
+
+                    b.Navigation("GeneticDisease");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("DataAccess.DBEntities.PatientReportDocs", b =>
+                {
+                    b.HasOne("DataAccess.DBEntities.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("DataAccess.DBEntities.Prescription", b =>
@@ -646,7 +771,11 @@ namespace DataAccess.Migrations
                 {
                     b.Navigation("Appointments");
 
+                    b.Navigation("HealthReports");
+
                     b.Navigation("MedicalRecords");
+
+                    b.Navigation("PatientDiseases");
 
                     b.Navigation("Prescriptions");
                 });

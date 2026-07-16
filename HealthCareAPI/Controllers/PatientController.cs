@@ -19,9 +19,9 @@ namespace HealthCareAPI.Controllers
         [HttpPost("CreatePatient")]
         public async Task<ResponseObj<string>> CreatePatient(PatientRequestModel patientRequestModel)
            => await _patientService.CreatePatient(patientRequestModel);
-        [HttpGet("GetPatients/{doctorId?}")]
-        public async Task<ResponseObj<List<PatientViewModel>>> GetPatients(string? doctorId = null)
-           => await _patientService.GetPatients(doctorId);
+        [HttpPost("GetPatients")]
+        public async Task<PagedResponse<PatientViewModel>> GetPatients(PaginationRequest request)
+           => await _patientService.GetPatients(request);
         [HttpPut("UpdatePatient/{patientId}")]
         public async Task<ResponseObj<string>> UpdatePatient(PatientRequestModel patientRequestModel, string patientId)
            => await _patientService.UpdatePatient(patientRequestModel, patientId);

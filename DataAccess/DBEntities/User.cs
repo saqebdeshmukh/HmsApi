@@ -20,7 +20,7 @@ namespace DataAccess.DBEntities
         [Required, StringLength(20)]
         public string Role { get; set; } = string.Empty;
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public ICollection<RefreshToken> RefreshTokens { get; set; }
 
         // Navigation (One-to-One)

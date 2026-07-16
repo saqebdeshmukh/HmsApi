@@ -1,8 +1,13 @@
 ﻿using DataAccess.AppointmentRepository;
 using DataAccess.DoctorRepository;
+using DataAccess.GeneticDiseaseRepository;
 using DataAccess.HealthReportRepository;
 using DataAccess.MedicalRecordRepository;
+using DataAccess.MedicinesRepository;
+using DataAccess.PatientDiseasesRepository;
+using DataAccess.PatientReportDocsRepository;
 using DataAccess.PatientRepository;
+using DataAccess.PrescriptionItemRepository;
 using DataAccess.PrescritpionRepository;
 using DataAccess.ReceptionistRepository;
 using DataAccess.RefreshTokenRepository;
@@ -28,5 +33,10 @@ namespace BusinessLogic.UnitOfWork
         IReceptionistRepository ReceptionistRepository { get; }
         IPrescritpionRepository PrescritpionRepository { get; }
         IHealthReportRepository HealthReportRepository { get; }
+        IPatientReportDocsRepository PatientReportDocsRepository { get; }
+        IMedicinesRepository MedicinesRepository { get; }
+        IGeneticDiseaseRepository GeneticDiseaseRepository { get; }
+        IPatientDiseasesRepository PatientDiseasesRepository { get; }
+        IPrescriptionItemRepository PrescriptionItemRepository { get; }
     }
 }

@@ -21,12 +21,12 @@ namespace DataAccess.DBEntities
         public string MedicineName { get; set; } = string.Empty;
 
         [StringLength(200)]
-        public string Dosage { get; set; } = string.Empty;
+        public string? Dosage { get; set; } = string.Empty;
         public int Frequency { get; set; }
         [StringLength(100)]
-        public string MealTiming { get; set; }
+        public string? MealTiming { get; set; }
 
         [StringLength(100)]
-        public string Duration { get; set; } = string.Empty;
+        public string? Duration { get; set; } = string.Empty;
     }
 }

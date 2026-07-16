@@ -20,9 +20,7 @@ namespace DataAccess.DBEntities
         public string? Height { get; set; }
 
         [StringLength(50)]
-        public string? SystolicBp { get; set; }
-        [StringLength(50)]
-        public string? DiastolicBp { get; set; }
+        public string? BloodPressure { get; set; }
 
         [StringLength(50)]
         public string? SugarAfterMeal { get; set; }

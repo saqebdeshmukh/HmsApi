@@ -7,6 +7,7 @@ using ViewModels;
 
 namespace HealthCareAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DashboardController : ControllerBase
@@ -34,6 +35,12 @@ namespace HealthCareAPI.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;            
             return await _dashboardService.GetReceptionistDashboard(userId);
         }
-
+        [HttpGet("GetIdToRedirect/{appointmentId}")]
+        public async Task<ResponseObj<RedirectToContinueModel>> GetIdToRedirect(string appointmentId)
+        {
+            //var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            //var role = User.FindFirst(ClaimTypes.Role)?.Value;
+            return await _dashboardService.GetIdToRedirect(appointmentId);
+        }
     }
 }

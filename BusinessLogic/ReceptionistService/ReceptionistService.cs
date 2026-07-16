@@ -1,4 +1,5 @@
-﻿using BusinessLogic.UnitOfWork;
+﻿using BusinessLogic.CommonService;
+using BusinessLogic.UnitOfWork;
 using DataAccess.DBEntities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace BusinessLogic.ReceptionistService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordHasher<User> _hasher;
-        public ReceptionistService(IUnitOfWork unitOfWork, IPasswordHasher<User> hasher)
+        private readonly ICommonService _commonService;
+        public ReceptionistService(IUnitOfWork unitOfWork, IPasswordHasher<User> hasher, ICommonService commonService)
         {
             _unitOfWork = unitOfWork;
             _hasher = hasher;
+            _commonService = commonService;
         }
         public async Task<ResponseObj<string>> CreateReceptionist(ReceptionistRequestModel receptionstRequestModel)
         {
@@ -26,7 +29,7 @@ namespace BusinessLogic.ReceptionistService
                 Id = Guid.NewGuid().ToString(),
                 Email = receptionstRequestModel.Email,
                 Role = "Receptionist",
-                CreatedAt = DateTime.Now,                
+                CreatedAt = _commonService.GetCurrentIndianTime(),
             };
             user.Password = _hasher.HashPassword(user, receptionstRequestModel.Password);
             await _unitOfWork.UserRepository.Add(user);
@@ -37,7 +40,7 @@ namespace BusinessLogic.ReceptionistService
                 FirstName = receptionstRequestModel.FirstName,
                 LastName = receptionstRequestModel.LastName,
                 Phone = receptionstRequestModel.Phone ?? string.Empty,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = _commonService.GetCurrentIndianTime()
             };
             await _unitOfWork.ReceptionistRepository.Add(receptionist);
             await _unitOfWork.Complete();

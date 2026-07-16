@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using ViewModels;
 
 namespace HealthCareAPI.Controllers
@@ -33,7 +34,10 @@ namespace HealthCareAPI.Controllers
             => await _prescriptionService.ExternalPrescriptions(request, null);
         [HttpGet("GetPrescriptionsByPatientId/{patientId}")]
         public async Task<ResponseObj<List<PrintViewModel>>> GetPrescriptionsByPatientId(string patientId)
-            => await _prescriptionService.GetPrescriptionsByPatientId(patientId);
+        {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+            return await _prescriptionService.GetPrescriptionsByPatientId(patientId, role); 
+        }
         [HttpGet("GetPrescriptionById/{id}")]
         public async Task<ResponseObj<PrintViewModel>> GetPrescriptionById(string id)
             => await _prescriptionService.PrescriptionById(id);

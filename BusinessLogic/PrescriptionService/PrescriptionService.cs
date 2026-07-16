@@ -548,11 +548,15 @@ namespace BusinessLogic.PrescriptionService
             responseObj.Data = prescription;
             return responseObj;
         }
-        public async Task<ResponseObj<List<PrintViewModel>>> GetPrescriptionsByPatientId(string patientId)
+        public async Task<ResponseObj<List<PrintViewModel>>> GetPrescriptionsByPatientId(string patientId, string role)
         {
             ResponseObj<List<PrintViewModel>> responseObj = new ResponseObj<List<PrintViewModel>>();
-            var prescriptions = await _unitOfWork.PrescritpionRepository.GetWithoutTracking()
-                .Where(x => x.PatientId == patientId)
+            var query =  _unitOfWork.PrescritpionRepository.GetWithoutTracking();
+                if(role == "Receptionist")
+            {
+                query = query.Where(x => x.Type == "Internal");
+            }
+            var prescriptions = await query.Where(x => x.PatientId == patientId)
                 .Select(s => new PrintViewModel
                 {
                     Id = s.Id,

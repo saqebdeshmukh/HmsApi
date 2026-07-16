@@ -86,7 +86,7 @@ namespace BusinessLogic.DashboardService
                     .GetWithoutTracking()
                     //.Include(a => a.Patient)
                     .Where(a => a.DoctorId == doctor.Id && a.AppointmentDate.Date == today)
-                    .OrderByDescending(a => a.AppointmentDate)
+                    .OrderBy(a => a.AppointmentDate)
                     .Take(10)
                     .Select(a => new AppointmentDto
                     {
@@ -103,7 +103,7 @@ namespace BusinessLogic.DashboardService
                     .Where(a => a.DoctorId == doctor.Id &&
                                 a.AppointmentDate > _commonService.GetCurrentIndianTime() &&
                                 (a.Status == AppointmentStatus.Scheduled || a.Status == AppointmentStatus.MedicalRecordCreated))
-                    .OrderByDescending(a => a.AppointmentDate)
+                    .OrderBy(a => a.AppointmentDate)
                     .Take(10)
                     .Select(a => new AppointmentDto
                     {
@@ -189,6 +189,7 @@ namespace BusinessLogic.DashboardService
                     .OrderBy(a => a.AppointmentDate)
                     .Select(a => new AppointmentDto
                     {
+                        Id=a.Id,
                         AppointmentDate = a.AppointmentDate,
                         PatientName = a.Patient.FirstName + " " + a.Patient.LastName,
                         Status = a.Status
@@ -210,6 +211,7 @@ namespace BusinessLogic.DashboardService
                                 a.AppointmentDate.Date == today)
                     .Select(a => new AppointmentDto
                     {
+                        Id = a.Id,
                         AppointmentDate = a.AppointmentDate,
                         PatientName = a.Patient.FirstName + " " + a.Patient.LastName,
                         Status = a.Status

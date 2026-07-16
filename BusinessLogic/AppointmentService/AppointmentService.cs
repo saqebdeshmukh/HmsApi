@@ -150,7 +150,7 @@ namespace BusinessLogic.AppointmentService
             }
             else
             {
-                query = query.OrderByDescending(x => x.AppointmentDate);
+                query = query.OrderBy(x => x.AppointmentDate);
             }
 
             var appointments = await query

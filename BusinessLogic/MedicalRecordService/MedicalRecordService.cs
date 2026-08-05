@@ -1,7 +1,9 @@
 using BusinessLogic.CommonService;
-using BusinessLogic.UnitOfWork;
 using BusinessLogic.ExtensionMethods;
+using BusinessLogic.UnitOfWork;
 using DataAccess.DBEntities;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,8 +25,8 @@ namespace BusinessLogic.MedicalRecordService
         {
             ResponseObj<string> responseObj = new ResponseObj<string>();
             MedicalRecord medicalRecord = new MedicalRecord();
-            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithTracking()
-                .Where(h => h.PatientId == medicalRecordRequestModel.PatientId && h.CreatedAt.Date == _commonService.GetCurrentIndianTime().Date).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
+            //var healthRpt = await _unitOfWork.HealthReportRepository.GetWithTracking()
+            //    .Where(h => h.PatientId == medicalRecordRequestModel.PatientId && h.CreatedAt.Date == _commonService.GetCurrentIndianTime().Date).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
             var appointments = await _unitOfWork.AppointmentRepository.GetWithoutTracking().Where(x => x.PatientId == medicalRecordRequestModel.PatientId).FirstOrDefaultAsync();
             if (appointments == null)
             {
@@ -42,15 +44,14 @@ namespace BusinessLogic.MedicalRecordService
             medicalRecord.Symptoms = medicalRecordRequestModel.Symptoms;
             medicalRecord.Notes = medicalRecordRequestModel.Notes;
             medicalRecord.CreatedAt = _commonService.GetCurrentIndianTime();
-            bool isSameHealthReport =
-        healthRpt != null &&
-        (healthRpt.Weight ?? "") == (medicalRecordRequestModel.Weight ?? "") &&
-        (healthRpt.Height ?? "") == (medicalRecordRequestModel.Height ?? "") &&
-        (healthRpt.BloodPressure ?? "") == (medicalRecordRequestModel.BloodPressure ?? "") &&
-        (healthRpt.SugarAfterMeal ?? "") == (medicalRecordRequestModel.SugarAfterMeal ?? "") &&
-        (healthRpt.SugarBeforeMeal ?? "") == (medicalRecordRequestModel.SugarBeforeMeal ?? "");
+            bool hasHealthData =
+    medicalRecordRequestModel.Weight != "0" ||
+    medicalRecordRequestModel.Height != "0" ||
+    medicalRecordRequestModel.BloodPressure != "0" ||
+    medicalRecordRequestModel.SugarBeforeMeal != "0" ||
+    medicalRecordRequestModel.SugarAfterMeal != "0";
 
-            if (!isSameHealthReport)
+            if (hasHealthData)
             {
                 HealthReport healthReport = new HealthReport
                 {
@@ -90,7 +91,6 @@ namespace BusinessLogic.MedicalRecordService
                 responseObj.Message = "Medical record not found";
                 return responseObj;
             }
-            medicalRecord.VisitDate = _commonService.GetCurrentIndianTime();
             medicalRecord.Treatment = medicalRecordRequestModel.Treatment;
             medicalRecord.Diagnosis = medicalRecordRequestModel.Diagnosis;
             medicalRecord.DoctorId = medicalRecordRequestModel.DoctorId;
@@ -308,6 +308,38 @@ namespace BusinessLogic.MedicalRecordService
                 responseObj.Message = "No medical record found";
                 return responseObj;
             }
+
+            var patient = await _unitOfWork.PatientRepository.GetWithoutTracking()
+                .Where(p => p.Id == medicalRecord.PatientId)
+                .Select(p => new { p.DateOfBirth })
+                .FirstOrDefaultAsync();
+
+            if (patient != null)
+            {
+                var indianTime = _commonService.GetCurrentIndianTime();
+                var age = indianTime.Year - patient.DateOfBirth.Year;
+                if (patient.DateOfBirth.Date > indianTime.Date.AddYears(-age)) age--;
+                medicalRecord.PatientAge = age;
+            }
+
+            var healthHistory = await _unitOfWork.HealthReportRepository.GetWithoutTracking()
+                .Where(h => h.PatientId == medicalRecord.PatientId)
+                .OrderByDescending(h => h.CreatedAt)
+                .Take(3)
+                .Select(h => new HealthHistoryDto
+                {
+                    Id = h.Id,
+                    Weight = h.Weight,
+                    Height = h.Height,
+                    BloodPressure = h.BloodPressure,
+                    SugarBeforeMeal = h.SugarBeforeMeal,
+                    SugarAfterMeal = h.SugarAfterMeal,
+                    CreatedAt = h.CreatedAt
+                })
+                .ToListAsync();
+
+            medicalRecord.HealthHistory = healthHistory;
+
             responseObj.IsSuccess = true;
             responseObj.Message = "Medical record retrieved successfully";
             responseObj.Data = medicalRecord;
@@ -403,6 +435,62 @@ namespace BusinessLogic.MedicalRecordService
             responseObj.Message = "Medical record retrieved successfully";
             responseObj.Data = medicalRecord;
             return responseObj;
+        }
+        public async Task<PagedResponse<HealthReportViewModel>> GetHealthReport(string patientId, PaginationRequest request)
+        {
+            var query = _unitOfWork.HealthReportRepository
+                .GetWithoutTracking()
+                .Where(x => x.PatientId == patientId);
+
+            // Date Filter
+            if (request.Filters != null &&
+                request.Filters.TryGetValue("createdAt", out var createdAt) &&
+                !string.IsNullOrWhiteSpace(createdAt) &&
+                DateTime.TryParse(createdAt, out var selectedDate))
+            {
+                var fromDate = selectedDate.Date;
+                var toDate = fromDate.AddDays(1);
+
+                query = query.Where(x => x.CreatedAt >= fromDate &&
+                                         x.CreatedAt < toDate);
+            }
+
+            var totalCount = await query.CountAsync();
+
+            // Sorting
+            if (!string.IsNullOrWhiteSpace(request.SortColumn))
+            {
+                query = query.ApplySorting(request.SortColumn, request.SortDirection);
+            }
+            else
+            {
+                query = query.OrderByDescending(x => x.CreatedAt);
+            }
+
+            var healthReports = await query
+                .ApplyPagination(request.PageNumber, request.PageSize)
+                .Select(x => new HealthReportViewModel
+                {
+                    Id = x.Id,
+                    PatientName = x.Patient.FirstName + " " + x.Patient.LastName,
+                    Weight = x.Weight,
+                    Height = x.Height,
+                    BP = x.BloodPressure,
+                    SugarBeforeMeal = x.SugarBeforeMeal,
+                    SugarAfterMeal = x.SugarAfterMeal,
+                    CreatedAt = x.CreatedAt
+                })
+                .ToListAsync();
+
+            return new PagedResponse<HealthReportViewModel>
+            {
+                IsSuccess = true,
+                Message = "Health reports retrieved successfully.",
+                Data = healthReports,
+                TotalCount = totalCount,
+                PageNumber = request.PageNumber,
+                PageSize = request.PageSize
+            };
         }
     }
 }

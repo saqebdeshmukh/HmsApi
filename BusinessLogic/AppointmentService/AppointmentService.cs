@@ -26,7 +26,7 @@ namespace BusinessLogic.AppointmentService
         {
             ResponseObj<string> responseObj = new ResponseObj<string>();
             var now = _commonService.GetCurrentIndianTime();
-            
+
             var appointmentExist = await _unitOfWork.AppointmentRepository.GetWithoutTracking()
                 .Where(a => a.PatientId == appointmentRequestModel.PatientId
                 && a.DoctorId == appointmentRequestModel.DoctorId && a.Status == AppointmentStatus.Scheduled
@@ -45,24 +45,21 @@ namespace BusinessLogic.AppointmentService
                 Id = Guid.NewGuid().ToString(),
                 PatientId = appointmentRequestModel.PatientId,
                 DoctorId = appointmentRequestModel.DoctorId,
-                AppointmentDate = appointmentRequestModel.AppointmentDate == _commonService.GetCurrentIndianTime().Date? _commonService.GetCurrentIndianTime() : appointmentRequestModel.AppointmentDate,
+                AppointmentDate = appointmentRequestModel.AppointmentDate == _commonService.GetCurrentIndianTime().Date ? _commonService.GetCurrentIndianTime() : appointmentRequestModel.AppointmentDate,
                 Status = AppointmentStatus.Scheduled,
                 Reason = appointmentRequestModel.Reason,
                 Notes = appointmentRequestModel.Notes,
                 CreatedAt = _commonService.GetCurrentIndianTime()
             };
             await _unitOfWork.AppointmentRepository.Add(appointment);
-            var healthRpt = await _unitOfWork.HealthReportRepository.GetWithTracking().Where(h => h.PatientId == appointmentRequestModel.PatientId && h.CreatedAt.Date == _commonService.GetCurrentIndianTime().Date).OrderByDescending(d => d.CreatedAt).FirstOrDefaultAsync();
-            bool isSameHealthReport =
-        healthRpt != null &&
-        (healthRpt.Weight ?? "") == (appointmentRequestModel.Weight ?? "") &&
-        (healthRpt.Height ?? "") == (appointmentRequestModel.Height ?? "") &&
-        (healthRpt.BloodPressure ?? "") == (appointmentRequestModel.BloodPressure ?? "") &&
-        (healthRpt.SugarAfterMeal ?? "") == (appointmentRequestModel.SugarAfterMeal ?? "") &&
-        (healthRpt.SugarBeforeMeal ?? "") == (appointmentRequestModel.SugarBeforeMeal ?? "");
+            bool hasHealthData =
+    appointmentRequestModel.Weight != "0" ||
+    appointmentRequestModel.Height != "0" ||
+    appointmentRequestModel.BloodPressure != "0" ||
+    appointmentRequestModel.SugarBeforeMeal != "0" ||
+    appointmentRequestModel.SugarAfterMeal != "0";
 
-            // Insert HealthReport ONLY if changed
-            if (!isSameHealthReport)
+            if (hasHealthData)
             {
                 HealthReport healthReport = new HealthReport
                 {
@@ -273,7 +270,7 @@ namespace BusinessLogic.AppointmentService
                         ColorCode = g.GeneticDisease.ColorCode
                     }).ToList(),
                 })
-                .FirstOrDefaultAsync();           
+                .FirstOrDefaultAsync();
             if (appointment == null)
             {
                 responseObj.IsSuccess = false;

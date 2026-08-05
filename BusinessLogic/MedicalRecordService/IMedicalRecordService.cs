@@ -14,5 +14,6 @@ namespace BusinessLogic.MedicalRecordService
         Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordById(string id);
         Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordForEdit(string id);
         Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordByIdForPres(string id);
+        Task<PagedResponse<HealthReportViewModel>> GetHealthReport(string patientId, PaginationRequest request);
     }
 }

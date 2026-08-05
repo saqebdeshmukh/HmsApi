@@ -40,5 +40,8 @@ namespace HealthCareAPI.Controllers
         [HttpGet("GetMedicalRecordForEdit/{id}")]
         public async Task<ResponseObj<MedicalRecordResponseModel>> GetMedicalRecordForEdit(string id)
             => await _medicalRecordService.GetMedicalRecordForEdit(id);
+        [HttpPost("GetHealthReport/{patientId}")]
+        public async Task<PagedResponse<HealthReportViewModel>> GetHealthReport(string patientId, [FromBody] PaginationRequest request)
+            => await _medicalRecordService.GetHealthReport(patientId, request);
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,7 +16,7 @@ namespace ViewModels
         public string? SugarBeforeMeal { get; set; }
         public string Diagnosis { get; set; } = string.Empty;
         public string Symptoms { get; set; } = string.Empty;
-        public string Treatment { get; set; } = string.Empty;
+        public string? Treatment { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
     }
     public class MedicalRecordResponseModel
@@ -45,8 +45,21 @@ namespace ViewModels
         public string? HyperTension { get; set; }
         public string? GeneticFrom { get; set; }
         public DateTime AppointmentDate { get; set; }
+        public int PatientAge { get; set; }
+        public List<HealthHistoryDto>? HealthHistory { get; set; }
         public List<PrescriptionViewModel> Prescriptions { get; set; }
         public List<GeneticDiseaseViewModel> GeneticDiseases { get; set; }
         public AppointmentViewModel? Appointment { get; set; }
+    }
+
+    public class HealthHistoryDto
+    {
+        public string Id { get; set; } = string.Empty;
+        public string? Weight { get; set; }
+        public string? Height { get; set; }
+        public string? BloodPressure { get; set; }
+        public string? SugarBeforeMeal { get; set; }
+        public string? SugarAfterMeal { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

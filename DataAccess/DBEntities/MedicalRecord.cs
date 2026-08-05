@@ -33,7 +33,7 @@ namespace DataAccess.DBEntities
 
         public string Diagnosis { get; set; } = string.Empty;
         public string Symptoms { get; set; } = string.Empty;
-        public string Treatment { get; set; } = string.Empty;
+        public string? Treatment { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

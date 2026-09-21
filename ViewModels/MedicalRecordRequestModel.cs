@@ -19,6 +19,11 @@ namespace ViewModels
         public string? Treatment { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
     }
+    public class MedicalAndPrescriptionModel
+    {
+        public MedicalRecordRequestModel medicalRecordRequestModel { get; set; }
+        public PrescriptionRequestModel prescriptionRequestModel { get; set; }
+    }
     public class MedicalRecordResponseModel
     {
         public string Id { get; set; }
@@ -51,7 +56,13 @@ namespace ViewModels
         public List<GeneticDiseaseViewModel> GeneticDiseases { get; set; }
         public AppointmentViewModel? Appointment { get; set; }
     }
-
+    public class MedicalRecordPrescription
+    {
+        public string PrescriptionId { get; set; }
+        public string Instructions { get; set; } = string.Empty;
+        public string Type { get; set; }
+        public List<PrescriptionItemRequest> prescriptionItemRequests { get; set; }
+    }
     public class HealthHistoryDto
     {
         public string Id { get; set; } = string.Empty;
@@ -61,5 +72,18 @@ namespace ViewModels
         public string? SugarBeforeMeal { get; set; }
         public string? SugarAfterMeal { get; set; }
         public DateTime CreatedAt { get; set; }
+    }
+    public class HistoryModel
+    {
+        public string MedicalRecordId { get; set; } = string.Empty;
+        public DateTime VisitDate { get; set; }
+        public string? Weight { get; set; }
+        public string? BloodPressure { get; set; }
+        public string? SugarBeforeMeal { get; set; }
+        public string? SugarAfterMeal { get; set; }
+        public string Diagnosis { get; set; } = string.Empty;
+        public string Symptoms { get; set; } = string.Empty;
+        public string Treatment { get; set; } = string.Empty;
+        public List<PrescriptionViewModel> Prescriptions { get; set; }
     }
 }

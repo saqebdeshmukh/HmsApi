@@ -4,6 +4,7 @@ using DataAccess.GeneticDiseaseRepository;
 using DataAccess.HealthReportRepository;
 using DataAccess.MedicalRecordRepository;
 using DataAccess.MedicinesRepository;
+using DataAccess.PatientAllergyRepository;
 using DataAccess.PatientDiseasesRepository;
 using DataAccess.PatientReportDocsRepository;
 using DataAccess.PatientRepository;
@@ -38,5 +39,6 @@ namespace BusinessLogic.UnitOfWork
         IGeneticDiseaseRepository GeneticDiseaseRepository { get; }
         IPatientDiseasesRepository PatientDiseasesRepository { get; }
         IPrescriptionItemRepository PrescriptionItemRepository { get; }
+        IPatientAllergyRepository PatientAllergyRepository { get; }
     }
 }

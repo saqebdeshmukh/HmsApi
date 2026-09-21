@@ -22,8 +22,6 @@ namespace DataAccess.DBEntities
 
         [ForeignKey(nameof(PatientId))]
         public Patient Patient { get; set; } = null!;
-
-        [Required]
         public string DoctorId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(DoctorId))]
@@ -37,9 +35,8 @@ namespace DataAccess.DBEntities
 
         [StringLength(50)]
         public string Duration { get; set; } = string.Empty;
-
         public string Instructions { get; set; } = string.Empty;
-
+        public bool IsGiven { get; set; } = false;
         public DateTime PrescriptionDate { get; set; } = DateTime.UtcNow;
         // Type: "MedicalStore" (printed by doctor) or "Internal" (admin/receptionist dispensed)
         public string Type { get; set; } = "MedicalStore";

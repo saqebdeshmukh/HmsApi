@@ -23,6 +23,9 @@ namespace HealthCareAPI.Controllers
         [HttpPost("GetAppointments")]
         public async Task<PagedResponse<AppointmentDto>> GetAppointments(PaginationRequest request)
             => await _appointmentService.GetAppointments(request);
+        [HttpGet("GetAppointmentsToSelect")]
+        public async Task<ResponseObj<List<AppointmentDto>>> GetAppointmentsToSelect()
+            => await _appointmentService.GetAppointmentsToSelect();
         [HttpGet("GetTodayAppointments")]
         public async Task<ResponseObj<List<AppointmentDto>>> GetTodayAppointments()
             => await _appointmentService.GetTodayAppointments();

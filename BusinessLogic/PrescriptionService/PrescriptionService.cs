@@ -142,7 +142,7 @@ namespace BusinessLogic.PrescriptionService
                 PatientName = s.Patient.FirstName + " " + s.Patient.LastName,
                 PrescriptionDate = s.PrescriptionDate,
                 Type = s.Type,
-                prescriptionItemRequests = s.Items.Select(p => new PrescriptionItemRequest { MedicineName = p.MedicineName, Dosage = p.Dosage, Duration = p.Duration, MealTiming = p.MealTiming, Frequency = p.Frequency }).ToList(),
+                PrescriptionItemRequests = s.Items.Select(p => new PrescriptionItemRequest { MedicineName = p.MedicineName, Dosage = p.Dosage, Duration = p.Duration, MealTiming = p.MealTiming, Frequency = p.Frequency }).ToList(),
             });
 
             var sortBy = (q.SortBy ?? "PrescriptionDate").ToLower();
@@ -294,7 +294,7 @@ namespace BusinessLogic.PrescriptionService
                     Type = s.Type,
 
 
-                    prescriptionItemRequests =
+                    PrescriptionItemRequests =
                       s.Items.Select(i => new PrescriptionItemRequest
                       {
                           MedicineName = i.MedicineName,
@@ -423,7 +423,7 @@ namespace BusinessLogic.PrescriptionService
 
                     Type = s.Type,
 
-                    prescriptionItemRequests = s.Items
+                    PrescriptionItemRequests = s.Items
                         .Select(i => new PrescriptionItemRequest
                         {
                             MedicineName = i.MedicineName,
@@ -551,8 +551,8 @@ namespace BusinessLogic.PrescriptionService
         public async Task<ResponseObj<List<PrintViewModel>>> GetPrescriptionsByPatientId(string patientId, string role)
         {
             ResponseObj<List<PrintViewModel>> responseObj = new ResponseObj<List<PrintViewModel>>();
-            var query =  _unitOfWork.PrescritpionRepository.GetWithoutTracking();
-                if(role == "Receptionist")
+            var query = _unitOfWork.PrescritpionRepository.GetWithoutTracking();
+            if (role == "Receptionist")
             {
                 query = query.Where(x => x.Type == "Internal");
             }
@@ -585,6 +585,60 @@ namespace BusinessLogic.PrescriptionService
             responseObj.IsSuccess = true;
             responseObj.Message = "Prescriptions retrieved successfully";
             responseObj.Data = prescriptions;
+            return responseObj;
+        }        
+        public async Task<ResponseObj<string>> UpdateInternalPrescriptionStatus(string prescriptionId)
+        {
+            var prescription = await _unitOfWork.PrescritpionRepository
+                .GetWithTracking()
+                .FirstOrDefaultAsync(p => p.Id == prescriptionId);
+            if (prescription == null)
+            {
+                return new ResponseObj<string>
+                {
+                    IsSuccess = false,
+                    Message = "Prescription not found"
+                };
+            }
+            prescription.IsGiven = true;
+            await _unitOfWork.PrescritpionRepository.Update(prescription);
+            await _unitOfWork.Complete();
+            return new ResponseObj<string>
+            {
+                IsSuccess = true,
+                Message = "Prescription status updated successfully"
+            };
+        }
+        public async Task<ResponseObj<List<QuickPrescriptionMedicineViewModel>>> GetAddQuickPrescription(string Type)
+        {
+            ResponseObj<List<QuickPrescriptionMedicineViewModel>> responseObj = new ResponseObj<List<QuickPrescriptionMedicineViewModel>>();
+            var medicines = await _unitOfWork.PrescritpionRepository
+                    .GetWithoutTracking()
+                    .Where(x => x.Type == Type)
+                    .SelectMany(x => x.Items)
+                    .GroupBy(x => x.MedicineName.ToUpper())
+                    .Select(g => new QuickPrescriptionMedicineViewModel
+                    {
+                        MedicineName = g.First().MedicineName,
+                        Dosage = g.First().Dosage,
+                        Duration = g.First().Duration,
+                        Frequency = g.First().Frequency.ToString(),
+                        MealTiming = g.First().MealTiming,
+                        PrescriptionCount = g.Count()
+                    })
+                    .OrderByDescending(x => x.PrescriptionCount)
+                    .Take(15)
+                    .ToListAsync();
+            if (!medicines.Any())
+            {
+                responseObj.IsSuccess = false;
+                responseObj.Message = "No medicines found.";
+                return responseObj;
+            }
+
+            responseObj.IsSuccess = true;
+            responseObj.Message = "Medicines retrieved successfully.";
+            responseObj.Data = medicines;
             return responseObj;
         }
         private Prescription CreatePrescriptionModel(PrescriptionRequest prescriptionRequestModel)

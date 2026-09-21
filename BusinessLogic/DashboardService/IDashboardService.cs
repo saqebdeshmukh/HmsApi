@@ -11,5 +11,6 @@ namespace BusinessLogic.DashboardService
         Task<ResponseObj<DoctorDashboardModel>> GetDoctorDashboard(string userId);
         Task<ResponseObj<ReceptionistDashboardModel>> GetReceptionistDashboard(string userId);
         Task<ResponseObj<RedirectToContinueModel>> GetIdToRedirect(string appointmentId);
+        Task<ResponseObj<List<DashboardPrescriptionViewModel>>> GetInternalPrescriptionsforDashboard();
     }
 }

@@ -44,5 +44,11 @@ namespace HealthCareAPI.Controllers
         [HttpGet("GetPrescriptionByIdForPrint/{id}")]
         public async Task<ResponseObj<PrintViewModel>> PrescriptionByIdForPrint(string id)
             => await _prescriptionService.PrescriptionByIdForPrint(id);
+        [HttpGet("GetAddQuickPrescription/{Type}")]
+        public async Task<ResponseObj<List<QuickPrescriptionMedicineViewModel>>> GetAddQuickPrescription(string Type)
+            => await _prescriptionService.GetAddQuickPrescription(Type);
+        [HttpPatch("UpdateInternalPrescriptionStatus/{prescriptionId}")]
+        public async Task<ResponseObj<string>> UpdateInternalPrescriptionStatus(string prescriptionId)
+            => await _prescriptionService.UpdateInternalPrescriptionStatus(prescriptionId);
     }
 }

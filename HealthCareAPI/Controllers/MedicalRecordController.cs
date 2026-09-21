@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.MedicalRecordService;
+using DataAccess.DBEntities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,11 @@ namespace HealthCareAPI.Controllers
             _medicalRecordService = medicalRecordService;
         }
         [HttpPost("CreateMedicalRecord")]
-        public async Task<ResponseObj<string>> CreateMedicalRecord(MedicalRecordRequestModel medicalRecordRequestModel)
-            => await _medicalRecordService.CreateMedicalRecord(medicalRecordRequestModel);
+        public async Task<ResponseObj<PrescriptionIdModel>> CreateMedicalRecord(MedicalAndPrescriptionModel medicalAndPrescriptionModel)
+            => await _medicalRecordService.CreateMedicalRecord(medicalAndPrescriptionModel);
         [HttpPut("UpdateMedicalRecord/{medicalRecordId}")]
-        public async Task<ResponseObj<string>> UpdateMedicalRecord(MedicalRecordRequestModel medicalRecordRequestModel, string medicalRecordId)
-            => await _medicalRecordService.UpdateMedicalRecord(medicalRecordRequestModel, medicalRecordId);
+        public async Task<ResponseObj<string>> UpdateMedicalRecord(MedicalAndPrescriptionModel medicalAndPrescriptionModel, string medicalRecordId)
+            => await _medicalRecordService.UpdateMedicalRecord(medicalAndPrescriptionModel, medicalRecordId);
         
         [HttpGet("GetMedicalRecordsByPatientId/{patientId}")]
         public async Task<ResponseObj<List<MedicalRecordResponseModel>>> GetMedicalRecordsByPatientId(string patientId)
@@ -43,5 +44,21 @@ namespace HealthCareAPI.Controllers
         [HttpPost("GetHealthReport/{patientId}")]
         public async Task<PagedResponse<HealthReportViewModel>> GetHealthReport(string patientId, [FromBody] PaginationRequest request)
             => await _medicalRecordService.GetHealthReport(patientId, request);
+        [HttpGet("GetMedicalHistory/{patientId}")]
+        public async Task<ResponseObj<List<HistoryModel>>> GetMedicalHistory(string patientId)
+            => await _medicalRecordService.GetMedicalHistory(patientId);
+        [HttpGet("DuplicateRecord/{medicalRecordId}/{appointmentId}")]
+        public async Task<ResponseObj<string>> DuplicateRecord(string medicalRecordId, string appointmentId)
+            => await _medicalRecordService.DuplicateRecord(medicalRecordId, appointmentId);
+        [HttpPost("CreatePatientAllergy")]
+        public async Task<ResponseObj<List<PatientAllergy>>> CreatePatientAllergy(PatientAllergy patientAllergy)
+            => await _medicalRecordService.CreatePatientAllergy(patientAllergy);
+        [HttpDelete("RemovePatientAllergy")]
+        public async Task<ResponseObj<List<PatientAllergy>>> RemovePatientAllergy(int allergyId, string patientId)
+            => await _medicalRecordService.RemovePatientAllergy(allergyId, patientId);
+        [HttpGet("GetAllergiesByPatientId/{patientId}")]
+        public async Task<ResponseObj<List<PatientAllergy>>> GetAllergiesByPatientId(string patientId)
+            => await _medicalRecordService.GetAllergiesByPatientId(patientId);
+
     }
 }

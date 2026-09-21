@@ -40,6 +40,7 @@ namespace DataAccess.Context
         public DbSet<Medicines> Medicines { get; set; }
         public DbSet<GeneticDisease> GeneticDisease { get; set; }
         public DbSet<PatientDiseases> PatientDiseases { get; set; }
+        public DbSet<PatientAllergy> PatientAllergies { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

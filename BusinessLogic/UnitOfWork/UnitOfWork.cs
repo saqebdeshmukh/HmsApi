@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using DataAccess.GeneticDiseaseRepository;
 using DataAccess.PatientDiseasesRepository;
 using DataAccess.PrescriptionItemRepository;
+using DataAccess.PatientAllergyRepository;
 
 namespace BusinessLogic.UnitOfWork
 {
@@ -42,6 +43,7 @@ namespace BusinessLogic.UnitOfWork
             GeneticDiseaseRepository = new GeneticDiseaseRepository(_context);
             PatientDiseasesRepository = new PatientDiseasesRepository(_context);
             PrescriptionItemRepository = new PrescriptionItemRepository(_context);
+            PatientAllergyRepository = new PatientAllergyRepository(_context);
         }
         public IUserRepository UserRepository { get; private set; }
         public IRefreshTokenRepository RefreshTokenRepository { get; private set; }
@@ -57,6 +59,7 @@ namespace BusinessLogic.UnitOfWork
         public IGeneticDiseaseRepository GeneticDiseaseRepository { get; private set; }
         public IPatientDiseasesRepository PatientDiseasesRepository { get; private set; }
         public IPrescriptionItemRepository PrescriptionItemRepository { get; private set; }
+        public IPatientAllergyRepository PatientAllergyRepository { get; private set; }
         public async Task<int> Complete()
         {
             return await _context.SaveChangesAsync();

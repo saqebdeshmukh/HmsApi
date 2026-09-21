@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.CommonService;
 using BusinessLogic.UnitOfWork;
 using DataAccess.DBEntities;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,9 @@ namespace BusinessLogic.DoctorService
                 Email = doctorRequestModel.Email,
                 Phone = doctorRequestModel.PhoneNumber,
                 ConsultationFee = doctorRequestModel.ConsultationFee,
-                CreatedAt = _commonService.GetCurrentIndianTime()
+                CreatedAt = _commonService.GetCurrentIndianTime(),
+                RegNo = doctorRequestModel.RegNo,
+                Address = doctorRequestModel.Address,
             };
             await _unitOfWork.DoctorRepository.Add(doctor);
             await _unitOfWork.Complete();
@@ -54,7 +57,9 @@ namespace BusinessLogic.DoctorService
                     ConsultationFee = s.ConsultationFee,
                     PhoneNumber = s.Phone,
                     UserId = s.UserId,
-                    CreatedAt = s.CreatedAt
+                    CreatedAt = s.CreatedAt,
+                    RegNo = s.RegNo,
+                    Address = s.Address,
                 })
                 .OrderByDescending(x => x.CreatedAt).ToListAsync();
             if (Doctors.Any())
@@ -79,7 +84,9 @@ namespace BusinessLogic.DoctorService
                     ConsultationFee = s.ConsultationFee,
                     PhoneNumber = s.Phone,
                     UserId = s.UserId,
-                    CreatedAt = s.CreatedAt
+                    CreatedAt = s.CreatedAt,
+                    RegNo = s.RegNo,
+                    Address = s.Address,
                 })
                 .OrderByDescending(x => x.CreatedAt).FirstOrDefaultAsync();
             if (Doctors == null)
@@ -107,6 +114,13 @@ namespace BusinessLogic.DoctorService
             Doctor.LastName = doctorRequest.LastName;
             Doctor.Specialization = doctorRequest.Specialization;
             Doctor.ConsultationFee = doctorRequest.ConsultationFee;
+            Doctor.Phone = doctorRequest.PhoneNumber;
+            Doctor.RegNo = doctorRequest.RegNo;
+            Doctor.Address = doctorRequest.Address;
+            await _unitOfWork.DoctorRepository.Update(Doctor);
+            await _unitOfWork.Complete();
+            responseObj.IsSuccess = true;
+            responseObj.Message = "Doctor updated successfully";
             return responseObj;
         }
     }

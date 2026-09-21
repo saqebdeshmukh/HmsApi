@@ -15,5 +15,7 @@ namespace BusinessLogic.PrescriptionService
         Task<PagedResponse<PrescriptionViewModel>> InternalPrescriptions(PaginationRequest request, string? doctorId = null);
         Task<PagedResponse<PrescriptionViewModel>> ExternalPrescriptions(PaginationRequest request, string? doctorId = null);
         Task<ResponseObj<PrintViewModel>> PrescriptionByIdForPrint(string id);
+        Task<ResponseObj<List<QuickPrescriptionMedicineViewModel>>> GetAddQuickPrescription(string Type);
+        Task<ResponseObj<string>> UpdateInternalPrescriptionStatus(string prescriptionId);
     }
 }

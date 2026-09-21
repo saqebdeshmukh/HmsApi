@@ -256,5 +256,22 @@ namespace BusinessLogic.DashboardService
             response.Data = redirectToContinueModel;
             return response;
         }
+        public async Task<ResponseObj<List<DashboardPrescriptionViewModel>>> GetInternalPrescriptionsforDashboard()
+        {
+            ResponseObj<List<DashboardPrescriptionViewModel>> responseObj = new ResponseObj<List<DashboardPrescriptionViewModel>>();
+            var prescriptions = await _unitOfWork.PrescritpionRepository
+                .GetWithoutTracking().Where(x=> x.IsGiven == false && x.Type == "Internal")
+                .Take(5)
+                .Select(p => new DashboardPrescriptionViewModel
+                {
+                    Id = p.Id,
+                    PatientName = p.Patient.FirstName + " " + p.Patient.LastName,
+                    PrescriptionDate = p.PrescriptionDate
+                })
+                .ToListAsync();
+            responseObj.Data = prescriptions;
+            responseObj.IsSuccess = true;
+            return responseObj;
+        }
     }
 }

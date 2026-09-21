@@ -13,6 +13,13 @@ namespace DataAccess.DBEntities
         public string? PatientId { get; set; }
         [ForeignKey("PatientId")]
         public Patient? Patient { get; set; }
+        public string? MedicalRecordId { get; set; }
+        [ForeignKey("MedicalRecordId")]
+        public MedicalRecord? MedicalRecord { get; set; }
+        public string? AppointmentId { get; set; }
+
+        [ForeignKey("AppointmentId")]
+        public Appointment? Appointment { get; set; }
         [StringLength(20)]
         public string? Weight { get; set; }
 

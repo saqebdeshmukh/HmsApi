@@ -42,5 +42,10 @@ namespace HealthCareAPI.Controllers
             //var role = User.FindFirst(ClaimTypes.Role)?.Value;
             return await _dashboardService.GetIdToRedirect(appointmentId);
         }
+        [HttpGet("GetInternalPrescriptionsforDashboard")]
+        public async Task<ResponseObj<List<DashboardPrescriptionViewModel>>> GetInternalPrescriptionsforDashboard()
+        {
+            return await _dashboardService.GetInternalPrescriptionsforDashboard();
+        }
     }
 }

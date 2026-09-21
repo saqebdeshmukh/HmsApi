@@ -13,6 +13,8 @@ namespace ViewModels
         public string Email { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
         public double ConsultationFee { get; set; }
+        public string? Address { get; set; }
+        public string? RegNo { get; set; }
     }
     public class DoctorViewModel
     {
@@ -25,5 +27,7 @@ namespace ViewModels
         public string PhoneNumber { get; set; } = string.Empty;
         public double ConsultationFee { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string? Address { get; set; }
+        public string? RegNo { get; set; }
     }
 }

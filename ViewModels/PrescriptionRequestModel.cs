@@ -6,6 +6,7 @@ namespace ViewModels
 {
     public class PrescriptionRequest
     {
+        public string? Id { get; set; }
         public string? MedicalRecordId { get; set; }
         public string PatientId { get; set; } = string.Empty;
         public string DoctorId { get; set; } = string.Empty;
@@ -27,7 +28,15 @@ namespace ViewModels
         public int Frequency { get; set; }
         public string MealTiming { get; set; }
         public string Duration { get; set; } = string.Empty;
-
+    }
+    public class QuickPrescriptionMedicineViewModel
+    {
+        public string MedicineName { get; set; }
+        public string Dosage { get; set; }
+        public string Duration { get; set; }
+        public string Frequency { get; set; }
+        public string MealTiming { get; set; }
+        public int PrescriptionCount { get; set; }
     }
     public class PrescriptionViewModel
     {
@@ -38,12 +47,9 @@ namespace ViewModels
         public DateTime PrescriptionDate { get; set; }
         public string DoctorId { get; set; } = string.Empty;
         public string DoctorName {  get; set; } = string.Empty;
-        public string MedicineName { get; set; } = string.Empty;
-        public string Dosage { get; set; } = string.Empty;
-        public string Duration { get; set; } = string.Empty;
         public string Instructions { get; set; } = string.Empty;
-        public string Type { get; set; } = "MedicalStore";
-        public List<PrescriptionItemRequest> prescriptionItemRequests { get; set; }
+        public string? Type { get; set; }
+        public List<PrescriptionItemRequest> PrescriptionItemRequests { get; set; }
     }
     public class PrintViewModel
     {
@@ -83,7 +89,6 @@ namespace ViewModels
         public string InternalId { get; set; }
         public string ExternalId { get; set; }
     }
-
     public class PrescriptionQueryParameters
     {
         public DateTime? FromDate { get; set; }
@@ -95,5 +100,11 @@ namespace ViewModels
         private int _pageSize = 20;
         public int PageNumber { get => _pageNumber < 1 ? 1 : _pageNumber; set => _pageNumber = value; }
         public int PageSize { get => _pageSize < 1 ? 20 : (_pageSize > 100 ? 100 : _pageSize); set => _pageSize = value; }
+    }
+    public class DashboardPrescriptionViewModel
+    {
+        public string Id { get; set; }
+        public string PatientName { get; set; }
+        public DateTime PrescriptionDate { get; set; }
     }
 }

@@ -53,11 +53,11 @@ namespace BusinessLogic.AppointmentService
             };
             await _unitOfWork.AppointmentRepository.Add(appointment);
             bool hasHealthData =
-    appointmentRequestModel.Weight != "0" ||
-    appointmentRequestModel.Height != "0" ||
-    appointmentRequestModel.BloodPressure != "0" ||
-    appointmentRequestModel.SugarBeforeMeal != "0" ||
-    appointmentRequestModel.SugarAfterMeal != "0";
+    appointmentRequestModel.Weight != "" ||
+    appointmentRequestModel.Height != "" ||
+    appointmentRequestModel.BloodPressure != "" ||
+    appointmentRequestModel.SugarBeforeMeal != "" ||
+    appointmentRequestModel.SugarAfterMeal != "";
 
             if (hasHealthData)
             {
@@ -69,7 +69,8 @@ namespace BusinessLogic.AppointmentService
                     BloodPressure = appointmentRequestModel.BloodPressure,
                     SugarBeforeMeal = appointmentRequestModel.SugarBeforeMeal,
                     SugarAfterMeal = appointmentRequestModel.SugarAfterMeal,
-                    CreatedAt = _commonService.GetCurrentIndianTime()
+                    CreatedAt = _commonService.GetCurrentIndianTime(),
+                    AppointmentId = appointment.Id
                 };
 
                 await _unitOfWork.HealthReportRepository.Add(healthReport);
@@ -171,6 +172,26 @@ namespace BusinessLogic.AppointmentService
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize
             };
+        }
+        public async Task<ResponseObj<List<AppointmentDto>>> GetAppointmentsToSelect()
+        {
+            ResponseObj<List<AppointmentDto>> responseObj = new ResponseObj<List<AppointmentDto>>();
+            var query = _unitOfWork.AppointmentRepository
+                .GetWithoutTracking().Where(x=>x.AppointmentDate.Date == _commonService.GetCurrentIndianTime().Date && (x.Status == AppointmentStatus.Scheduled || x.Status == AppointmentStatus.MedicalRecordCreated))
+                .Select(a => new AppointmentDto
+                {
+                    Id = a.Id,
+                    AppointmentDate = a.AppointmentDate,
+                    PatientName = a.Patient.FirstName + " " + a.Patient.LastName,
+                    Phone = a.Patient.Phone,
+                    Status = a.Status
+                });
+
+            responseObj.Data = await query.ToListAsync();
+            responseObj.IsSuccess = true;
+            responseObj.Message = "Appointments retrieved successfully.";
+
+            return responseObj;
         }
         public async Task<ResponseObj<List<AppointmentDto>>> GetTodayAppointments()
         {

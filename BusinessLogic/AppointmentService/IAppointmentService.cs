@@ -9,6 +9,7 @@ namespace BusinessLogic.AppointmentService
     {
         Task<ResponseObj<string>> CreateAppointment(AppointmentRequestModel appointmentRequestModel);
         Task<PagedResponse<AppointmentDto>> GetAppointments(PaginationRequest request);
+        Task<ResponseObj<List<AppointmentDto>>> GetAppointmentsToSelect();
         Task<ResponseObj<List<AppointmentDto>>> GetTodayAppointments();
         Task<ResponseObj<List<AppointmentDto>>> GetUpcomingAppointments();
         Task<ResponseObj<List<AppointmentDto>>> GetCompletedAppointments();

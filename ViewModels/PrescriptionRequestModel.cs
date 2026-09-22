@@ -40,16 +40,16 @@ namespace ViewModels
     }
     public class PrescriptionViewModel
     {
-        public string Id {  get; set; }
+        public string Id { get; set; } = string.Empty;
         public string? MedicalRecordId { get; set; }
         public string PatientId { get; set; } = string.Empty;
-        public string PatientName { get; set; }
+        public string PatientName { get; set; } = string.Empty;
         public DateTime PrescriptionDate { get; set; }
         public string DoctorId { get; set; } = string.Empty;
-        public string DoctorName {  get; set; } = string.Empty;
+        public string DoctorName { get; set; } = string.Empty;
         public string Instructions { get; set; } = string.Empty;
         public string? Type { get; set; }
-        public List<PrescriptionItemRequest> PrescriptionItemRequests { get; set; }
+        public List<PrescriptionItemRequest> PrescriptionItemRequests { get; set; } = new();
     }
     public class PrintViewModel
     {
@@ -61,10 +61,22 @@ namespace ViewModels
         public string DoctorId { get; set; } = string.Empty;
         public DateTime CreatedAt {  get; set; }
         public DateTime? NextAppointment {  get; set; }
-        public string PatientPhoneNo { get; set; }
-        public string Instructions { get; set; }
-        public string Diagnosis { get; set; }
+        public string? PatientPhoneNo { get; set; }
+        public string? Instructions { get; set; }
+        public string? Diagnosis { get; set; }
+        public string? PatientGender { get; set; }
+        public string? DoctorDegree { get; set; }
+        public string? RegNo { get; set; }
+        public int? PatientAge { get; set; }
         public string DoctorName { get; set; }
+        public string? clinicName { get; set; }
+        public string? DoctorPhoneNo { get; set; }
+        public string? ClinicAddress { get; set; }
+        public string? DoctorEmail { get; set; }
+        public string? Weight { get; set; }
+        public string? BP { get; set; }
+        public string? SugarBeforeMeal { get; set; }
+        public string? SugarAfterMeal { get; set; }
         public string Specialization { get; set; }
         public string Type { get; set; }
         public string GeneticFrom { get; set; }

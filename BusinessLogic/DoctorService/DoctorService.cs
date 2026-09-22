@@ -32,6 +32,8 @@ namespace BusinessLogic.DoctorService
                 ConsultationFee = doctorRequestModel.ConsultationFee,
                 CreatedAt = _commonService.GetCurrentIndianTime(),
                 RegNo = doctorRequestModel.RegNo,
+                ClinicName = doctorRequestModel.ClinicName,
+                DoctorDegree = doctorRequestModel.DoctorDegree,
                 Address = doctorRequestModel.Address,
             };
             await _unitOfWork.DoctorRepository.Add(doctor);
@@ -60,6 +62,8 @@ namespace BusinessLogic.DoctorService
                     CreatedAt = s.CreatedAt,
                     RegNo = s.RegNo,
                     Address = s.Address,
+                    ClinicName = s.ClinicName,
+                    DoctorDegree = s.DoctorDegree
                 })
                 .OrderByDescending(x => x.CreatedAt).ToListAsync();
             if (Doctors.Any())
@@ -87,6 +91,8 @@ namespace BusinessLogic.DoctorService
                     CreatedAt = s.CreatedAt,
                     RegNo = s.RegNo,
                     Address = s.Address,
+                    ClinicName = s.ClinicName,
+                    DoctorDegree = s.DoctorDegree
                 })
                 .OrderByDescending(x => x.CreatedAt).FirstOrDefaultAsync();
             if (Doctors == null)
@@ -115,7 +121,9 @@ namespace BusinessLogic.DoctorService
             Doctor.Specialization = doctorRequest.Specialization;
             Doctor.ConsultationFee = doctorRequest.ConsultationFee;
             Doctor.Phone = doctorRequest.PhoneNumber;
+            Doctor.ClinicName = doctorRequest.ClinicName;
             Doctor.RegNo = doctorRequest.RegNo;
+            Doctor.DoctorDegree = doctorRequest.DoctorDegree;
             Doctor.Address = doctorRequest.Address;
             await _unitOfWork.DoctorRepository.Update(Doctor);
             await _unitOfWork.Complete();

@@ -846,7 +846,7 @@ namespace BusinessLogic.MedicalRecordService
         }
         public async Task<ResponseObj<List<HistoryModel>>> GetMedicalHistory(string patientId)
         {
-            ResponseObj<List<HistoryModel>> responseObj = new ResponseObj<List<HistoryModel>>();
+            ResponseObj<List<HistoryModel>> responseObj = new();
 
             var medicalHistory = await _unitOfWork.MedicalRecordRepository
                 .GetWithoutTracking()
@@ -859,7 +859,21 @@ namespace BusinessLogic.MedicalRecordService
                     Diagnosis = x.Diagnosis,
                     Symptoms = x.Symptoms,
                     Treatment = x.Treatment ?? string.Empty,
+                    // Optional HealthReport
+                    HealthReport = x.HealthReport == null
+                        ? null
+                        : new HealthReportHistoryModel
+                        {
+                           // Id = x.HealthReport.Id,
+                            Weight = x.HealthReport.Weight,
+                            Height = x.HealthReport.Height,
+                            BloodPressure = x.HealthReport.BloodPressure,
+                            SugarBeforeMeal = x.HealthReport.SugarBeforeMeal,
+                            SugarAfterMeal = x.HealthReport.SugarAfterMeal,
+                            //CreatedAt = x.HealthReport.CreatedAt
+                        },
 
+                    // Prescriptions
                     Prescriptions = x.Prescriptions
                         .Select(p => new PrescriptionViewModel
                         {
@@ -870,9 +884,8 @@ namespace BusinessLogic.MedicalRecordService
                             DoctorId = p.DoctorId,
                             Instructions = p.Instructions,
                             Type = p.Type,
-
+                            // Prescription Items
                             PrescriptionItemRequests = p.Items
-                                .Where(i => i.PrescriptionId == p.Id)
                                 .Select(i => new PrescriptionItemRequest
                                 {
                                     Id = i.Id,
@@ -887,10 +900,8 @@ namespace BusinessLogic.MedicalRecordService
                         .ToList()
                 })
                 .ToListAsync();
-
             responseObj.Data = medicalHistory;
             responseObj.IsSuccess = true;
-
             return responseObj;
         }
         public async Task<ResponseObj<string>> DuplicateRecord(string medicalRecordId, string appointmentId)
@@ -1014,7 +1025,6 @@ namespace BusinessLogic.MedicalRecordService
             responseObj.Message = "Patient allergies retrieved successfully";
             return responseObj;
         }
-
         private Prescription CreatePrescriptionModel(PrescriptionRequest prescriptionRequestModel, string medicalRecordId)
         {
             Prescription prescription = new Prescription();

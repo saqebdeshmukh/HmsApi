@@ -12,6 +12,8 @@ namespace ViewModels
         public string Specialization { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
+        public string? ClinicName { get; set; }
+        public string? DoctorDegree { get; set; }
         public double ConsultationFee { get; set; }
         public string? Address { get; set; }
         public string? RegNo { get; set; }
@@ -25,6 +27,8 @@ namespace ViewModels
         public string Specialization { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
+        public string? ClinicName { get; set; }
+        public string? DoctorDegree { get; set; }
         public double ConsultationFee { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? Address { get; set; }

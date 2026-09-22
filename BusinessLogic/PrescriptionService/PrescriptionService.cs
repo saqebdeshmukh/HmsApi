@@ -512,22 +512,26 @@ namespace BusinessLogic.PrescriptionService
                     Diagnosis = s.MedicalRecord.Diagnosis,
                     PatientId = s.PatientId,
                     DoctorId = s.DoctorId,
+                    DoctorPhoneNo = s.Doctor.Phone,
+                    ClinicAddress = s.Doctor.Address,
+                    DoctorEmail = s.Doctor.Email,
                     MedicalRecordId = s.MedicalRecordId,
                     Specialization = s.Doctor.Specialization,
+                    clinicName = s.Doctor.ClinicName,
                     PrescriptionDate = s.PrescriptionDate,
+                    PatientAge = _commonService.GetCurrentIndianTime().Year - s.Patient.DateOfBirth.Year,
+                    PatientGender = s.Patient.Gender,
+                    DoctorDegree = s.Doctor.DoctorDegree,
+                    RegNo = s.Doctor.RegNo,
                     Type = s.Type,
                     AppointmentId = s.MedicalRecord.AppointmentId,
                     DoctorName = s.Doctor.FirstName + " " + s.Doctor.LastName,
                     PatientName = s.Patient.FirstName + " " + s.Patient.LastName,
                     CreatedAt = s.PrescriptionDate,
-
-                    //GeneticFrom = s.Patient.GeneticFrom,
-                    //GeneticDiseases = s.Patient.PatientDiseases.Select(g => new GeneticDiseaseViewModel
-                    //{
-                    //    DiseaseName = g.GeneticDisease.DiseaseName,
-                    //    Medicines = g.Medicines,
-                    //    ColorCode = g.GeneticDisease.ColorCode
-                    //}).ToList(),
+                    Weight = s.MedicalRecord.HealthReport!=null? s.MedicalRecord.HealthReport.Weight : null,
+                    BP = s.MedicalRecord.HealthReport!=null? s.MedicalRecord.HealthReport.BloodPressure : null,
+                    SugarBeforeMeal = s.MedicalRecord.HealthReport!=null? s.MedicalRecord.HealthReport.SugarBeforeMeal : null,
+                    SugarAfterMeal = s.MedicalRecord.HealthReport!=null? s.MedicalRecord.HealthReport.SugarAfterMeal : null,
                     prescriptionItemRequests = s.Items.Select(p => new PrescriptionItemRequest { MedicineName = p.MedicineName, Dosage = p.Dosage, Duration = p.Duration, MealTiming = p.MealTiming, Frequency = p.Frequency }).ToList(),
                 })
                 .OrderByDescending(o => o.CreatedAt)
@@ -538,11 +542,15 @@ namespace BusinessLogic.PrescriptionService
                 responseObj.Message = "No prescription found";
                 return responseObj;
             }
-            prescription.NextAppointment = _unitOfWork.AppointmentRepository.GetWithoutTracking()
-                .Where(x => x.PatientId == prescription.PatientId && x.Status == AppointmentStatus.Scheduled && x.AppointmentDate > prescription.PrescriptionDate)
-                .OrderBy(x => x.AppointmentDate)
-                .Select(x => x.AppointmentDate)
-                .FirstOrDefault();
+            prescription.NextAppointment = _unitOfWork.AppointmentRepository
+     .GetWithoutTracking()
+     .Where(x =>
+         x.PatientId == prescription.PatientId &&
+         x.Status == AppointmentStatus.Scheduled &&
+         x.AppointmentDate > prescription.PrescriptionDate)
+     .OrderBy(x => x.AppointmentDate)
+     .Select(x => (DateTime?)x.AppointmentDate)
+     .FirstOrDefault();
             responseObj.IsSuccess = true;
             responseObj.Message = "Prescription retrieved successfully";
             responseObj.Data = prescription;

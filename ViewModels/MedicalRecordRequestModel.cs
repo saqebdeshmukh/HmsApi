@@ -77,13 +77,18 @@ namespace ViewModels
     {
         public string MedicalRecordId { get; set; } = string.Empty;
         public DateTime VisitDate { get; set; }
-        public string? Weight { get; set; }
-        public string? BloodPressure { get; set; }
-        public string? SugarBeforeMeal { get; set; }
-        public string? SugarAfterMeal { get; set; }
         public string Diagnosis { get; set; } = string.Empty;
         public string Symptoms { get; set; } = string.Empty;
         public string Treatment { get; set; } = string.Empty;
+        public HealthReportHistoryModel? HealthReport { get; set; }
         public List<PrescriptionViewModel> Prescriptions { get; set; }
+    }
+    public class HealthReportHistoryModel
+    {
+        public string? Weight { get; set; }
+        public string? Height { get; set; }
+        public string? BloodPressure { get; set; }
+        public string? SugarBeforeMeal { get; set; }
+        public string? SugarAfterMeal { get; set; }
     }
 }

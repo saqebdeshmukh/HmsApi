@@ -73,11 +73,17 @@ namespace DataAccess.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ClinicName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("ConsultationFee")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorDegree")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -205,7 +211,9 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("AppointmentId");
 
-                    b.HasIndex("MedicalRecordId");
+                    b.HasIndex("MedicalRecordId")
+                        .IsUnique()
+                        .HasFilter("[MedicalRecordId] IS NOT NULL");
 
                     b.HasIndex("PatientId");
 
@@ -662,8 +670,8 @@ namespace DataAccess.Migrations
                         .HasForeignKey("AppointmentId");
 
                     b.HasOne("DataAccess.DBEntities.MedicalRecord", "MedicalRecord")
-                        .WithMany()
-                        .HasForeignKey("MedicalRecordId");
+                        .WithOne("HealthReport")
+                        .HasForeignKey("DataAccess.DBEntities.HealthReport", "MedicalRecordId");
 
                     b.HasOne("DataAccess.DBEntities.Patient", "Patient")
                         .WithMany("HealthReports")
@@ -825,6 +833,8 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.DBEntities.MedicalRecord", b =>
                 {
+                    b.Navigation("HealthReport");
+
                     b.Navigation("Prescriptions");
                 });
 

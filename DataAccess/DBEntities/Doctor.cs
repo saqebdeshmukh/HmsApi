@@ -33,6 +33,8 @@ namespace DataAccess.DBEntities
         public string Email { get; set; } = string.Empty;
         public string? Address { get; set; }
         public string? RegNo { get; set; }
+        public string? ClinicName { get; set; }
+        public string? DoctorDegree { get; set; }
         public double ConsultationFee { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

@@ -32,6 +32,8 @@ namespace DataAccess.DBEntities
         public string? Treatment { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public ICollection<Prescription>? Prescriptions { get; set; }
+        public ICollection<Prescription> Prescriptions { get; set; }
+        = new List<Prescription>();
+        public HealthReport? HealthReport { get; set; }
     }
 }

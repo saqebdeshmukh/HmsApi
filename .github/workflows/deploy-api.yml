@@ -1,0 +1,62 @@
+
+name: HmsApi - Build and Deploy
+
+on:
+  push:
+    branches:
+      - Uat
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hmsapi-production
+  cancel-in-progress: false
+
+env:
+  DOTNET_VERSION: '10.0.x'
+  CONFIGURATION: Release
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      # Update this path to your actual solution file.
+      - name: Restore solution
+        run: dotnet restore "./HmsApi.sln"
+
+      - name: Build solution
+        run: >
+          dotnet build "./HmsApi.sln"
+          --configuration ${{ env.CONFIGURATION }}
+          --no-restore
+
+      # IMPORTANT:
+      # Replace this with the path to the ASP.NET Core Web API
+      # project, not a class library or the solution file.
+      - name: Publish API
+        run: >
+          dotnet publish "./src/HmsApi/HmsApi.csproj"
+          --configuration ${{ env.CONFIGURATION }}
+          --no-restore
+          --output "${{ github.workspace }}/publish"
+          --runtime win-x86
+          --self-contained false
+
+      - name: Deploy to MonsterASP.NET
+        uses: rasmusbuchholdt/simply-web-deploy@2.1.0
+        with:
+          website-name: ${{ secrets.WEBSITE_NAME }}
+          server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
+          server-username: ${{ secrets.SERVER_USERNAME }}
+          server-password: ${{ secrets.SERVER_PASSWORD }}

@@ -1,5 +1,5 @@
 
-name: HmsApi - Build and Deploy
+name: HmsApi - CI/CD
 
 on:
   push:
@@ -14,44 +14,32 @@ concurrency:
   group: hmsapi-production
   cancel-in-progress: false
 
-env:
-  DOTNET_VERSION: '10.0.x'
-  CONFIGURATION: Release
-
 jobs:
   build-and-deploy:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: '10.0.x'
 
-      # Update this path to your actual solution file.
       - name: Restore solution
-        run: dotnet restore "./HmsApi.sln"
+        run: dotnet restore HealthCareAPI.slnx
 
       - name: Build solution
-        run: >
-          dotnet build "./HmsApi.sln"
-          --configuration ${{ env.CONFIGURATION }}
-          --no-restore
+        run: dotnet build HealthCareAPI.slnx --configuration Release --no-restore
 
-      # IMPORTANT:
-      # Replace this with the path to the ASP.NET Core Web API
-      # project, not a class library or the solution file.
-      - name: Publish API
+      - name: Publish Web API
         run: >
-          dotnet publish "./src/HmsApi/HmsApi.csproj"
-          --configuration ${{ env.CONFIGURATION }}
-          --no-restore
-          --output "${{ github.workspace }}/publish"
+          dotnet publish HealthCareAPI/HealthCareAPI.csproj
+          --configuration Release
           --runtime win-x86
           --self-contained false
+          --output ./publish
 
       - name: Deploy to MonsterASP.NET
         uses: rasmusbuchholdt/simply-web-deploy@2.1.0
